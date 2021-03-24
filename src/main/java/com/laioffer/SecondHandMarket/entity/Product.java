@@ -26,6 +26,8 @@ public class Product {
 
     private SaleList saleList;
 
+    private ProductImage image;
+
     public int getId() {
         return id;
     }
@@ -120,5 +122,13 @@ public class Product {
 
     public void setSaleList(SaleList saleList) {
         this.saleList = saleList;
+    }
+
+    public ProductImage getImage() {
+        return image;
+    }
+
+    public void setImage(ProductImage image) {
+        this.image = image;
     }
 }
