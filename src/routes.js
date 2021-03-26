@@ -18,7 +18,7 @@ export default [
     path: "/",
     exact: true,
     layout: DefaultLayout,
-    component: () => <Redirect to="/blog-overview" />
+    component: () => <Redirect to="/home" />
   },
   {
     path: "/blog-overview",
@@ -51,7 +51,7 @@ export default [
     component: Tables
   },
   {
-    path: "/blog-posts",
+    path: "/home",
     layout: DefaultLayout,
     component: BlogPosts
   }
