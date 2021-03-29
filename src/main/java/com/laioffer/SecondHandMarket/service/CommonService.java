@@ -9,7 +9,7 @@ import javax.persistence.EntityManagerFactory;
 
 public abstract class CommonService {
 
-    private SessionFactory hibernateFactory;
+    protected SessionFactory hibernateFactory;
 
     @Autowired
     protected CommonService(EntityManagerFactory factory) {

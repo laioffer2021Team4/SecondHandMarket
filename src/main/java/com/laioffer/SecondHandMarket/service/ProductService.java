@@ -11,11 +11,11 @@ import java.util.List;
 @Service
 public class ProductService extends CommonService {
 
+    private final ProductDao productDao;
     @Autowired
-    private ProductDao productDao;
-
-    protected ProductService(EntityManagerFactory factory) {
+    protected ProductService(EntityManagerFactory factory, ProductDao productDao) {
         super(factory);
+        this.productDao = productDao;
     }
 
     public List<Product> getAllProducts() {
