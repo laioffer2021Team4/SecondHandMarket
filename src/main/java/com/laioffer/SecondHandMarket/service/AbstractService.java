@@ -7,12 +7,12 @@ import javax.persistence.EntityManagerFactory;
 
 
 
-public abstract class CommonService {
+public abstract class AbstractService {
 
     protected SessionFactory hibernateFactory;
 
     @Autowired
-    protected CommonService(EntityManagerFactory factory) {
+    protected AbstractService(EntityManagerFactory factory) {
         if(factory.unwrap(SessionFactory.class) == null){
             throw new NullPointerException("factory is not a hibernate factory");
         }

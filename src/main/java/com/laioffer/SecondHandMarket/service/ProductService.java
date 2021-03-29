@@ -9,7 +9,7 @@ import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
 @Service
-public class ProductService extends CommonService {
+public class ProductService extends AbstractService {
 
     private final ProductDao productDao;
     @Autowired
