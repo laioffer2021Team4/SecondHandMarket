@@ -12,9 +12,12 @@ import java.util.List;
 @Repository
 public class ProductDao {
 
-    @Autowired
     SessionFactory sessionFactory;
 
+    @Autowired
+    public ProductDao(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
     public void addProduct(Product product) {
         Session session = null;
         try {

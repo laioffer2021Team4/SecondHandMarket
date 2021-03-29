@@ -26,7 +26,7 @@ public class S3StorageService implements StorageService{
     private final Path rootLocation;
 
     @Autowired
-    private S3StorageService(AmazonS3Client amazonS3Client, StorageProperties properties) {
+    public S3StorageService(AmazonS3Client amazonS3Client, StorageProperties properties) {
         this.amazonS3Client = amazonS3Client;
         this.rootLocation = Paths.get(properties.getLocation());
     }

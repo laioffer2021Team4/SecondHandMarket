@@ -5,13 +5,18 @@ import com.laioffer.SecondHandMarket.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
 @Service
-public class ProductService {
+public class ProductService extends CommonService {
 
     @Autowired
     private ProductDao productDao;
+
+    protected ProductService(EntityManagerFactory factory) {
+        super(factory);
+    }
 
     public List<Product> getAllProducts() {
         return productDao.getAllProducts();
