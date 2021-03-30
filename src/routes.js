@@ -12,6 +12,8 @@ import Errors from "./views/Errors";
 import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
+import Register from "./views/Register"
+import Login from "./views/Login"
 
 export default [
   {
@@ -54,5 +56,15 @@ export default [
     path: "/home",
     layout: DefaultLayout,
     component: BlogPosts
+  },
+  {
+    path: "/register",
+    layout: DefaultLayout,
+    component: Register
+  },
+  {
+    path: "/login",
+    layout: DefaultLayout,
+    component: Login
   }
 ];
