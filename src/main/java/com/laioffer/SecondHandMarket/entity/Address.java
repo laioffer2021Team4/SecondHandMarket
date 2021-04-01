@@ -1,8 +1,6 @@
 package com.laioffer.SecondHandMarket.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -12,7 +10,9 @@ public class Address implements Serializable {
     private static final long serialVersionUID = -1745369143190678419L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
     private AddressType type;
     private String street;
     private String city;
