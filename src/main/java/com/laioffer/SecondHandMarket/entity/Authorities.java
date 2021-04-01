@@ -13,6 +13,7 @@ public class Authorities implements Serializable {
 
     @Id
     private String emailId;
+
     private UserRole role;
 
     public String getEmailId() {

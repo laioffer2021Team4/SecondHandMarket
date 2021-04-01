@@ -1,8 +1,21 @@
 package com.laioffer.SecondHandMarket.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "image")
 public class ProductImage {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
     private String url;
+
+    @ManyToOne
+    @JsonIgnore
     private Product product;
 
     public int getId() {
