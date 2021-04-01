@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "./",
   "dependencies": {
+    "@material-ui/core": "^4.11.3",
     "camelize": "^1.0.0",
     "chart.js": "^2.7.3",
     "classnames": "^2.2.6",
@@ -35,5 +36,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "@material-ui/icons": "^4.11.2"
+  }
 }

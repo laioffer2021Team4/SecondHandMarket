@@ -11,9 +11,10 @@ import AddNewPost from "./views/AddNewPost";
 import Errors from "./views/Errors";
 import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
-import BlogPosts from "./views/BlogPosts";
+import Home from "./views/Home";
 import Register from "./views/Register"
 import Login from "./views/Login"
+import ProductsList from "./views/ProductsList"
 
 export default [
   {
@@ -55,7 +56,7 @@ export default [
   {
     path: "/home",
     layout: DefaultLayout,
-    component: BlogPosts
+    component: Home
   },
   {
     path: "/register",
@@ -66,5 +67,10 @@ export default [
     path: "/login",
     layout: DefaultLayout,
     component: Login
+  },
+  {
+    path: "/myposts",
+    layout: DefaultLayout,
+    component: ProductsList
   }
 ];
