@@ -18,6 +18,7 @@ public class ProductDao {
     public ProductDao(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
+
     public void addProduct(Product product) {
         Session session = null;
         try {

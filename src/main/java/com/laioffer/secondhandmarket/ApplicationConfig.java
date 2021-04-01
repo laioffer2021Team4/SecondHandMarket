@@ -11,7 +11,7 @@ import java.util.Properties;
 @Configuration
 public class ApplicationConfig {
 
-    @Bean(name = "sessionFactory")
+    @Bean(name="entityManagerFactory")
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
@@ -23,6 +23,7 @@ public class ApplicationConfig {
     @Bean(name = "dataSource")
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("<your RDS url>");
         dataSource.setUsername("<your username>");
         dataSource.setPassword("<your password>");

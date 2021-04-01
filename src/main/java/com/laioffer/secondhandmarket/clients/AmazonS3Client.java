@@ -34,6 +34,7 @@ public class AmazonS3Client {
     private String secretKey;
     @Value("${s3.region}")
     private String region;
+
     @PostConstruct
     private void initializeAmazon() {
         AWSCredentials credentials
@@ -44,6 +45,7 @@ public class AmazonS3Client {
                 .withCredentials(new AWSStaticCredentialsProvider(credentials))
                 .build();
     }
+
     public String uploadFile(MultipartFile multipartFile)
             throws Exception {
         String fileUrl = "";
@@ -79,7 +81,7 @@ public class AmazonS3Client {
     }
 
     private String generateFileName(MultipartFile multiPart) {
-        return new Date().getTime() + "-" +   Objects.requireNonNull(multiPart.getOriginalFilename()).replace(" ", "_");
+        return new Date().getTime() + "-" + Objects.requireNonNull(multiPart.getOriginalFilename()).replace(" ", "_");
     }
 
     private String getFileNameFromFileURL(String fileUrl) {

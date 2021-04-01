@@ -1,7 +1,5 @@
 package com.laioffer.SecondHandMarket.entity;
 
-import java.util.List;
-
 public class Customer {
 
     private int id;

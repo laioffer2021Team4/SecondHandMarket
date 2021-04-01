@@ -12,6 +12,7 @@ import java.util.List;
 public class ProductService extends AbstractService {
 
     private final ProductDao productDao;
+
     @Autowired
     protected ProductService(EntityManagerFactory factory, ProductDao productDao) {
         super(factory);
