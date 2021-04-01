@@ -23,7 +23,6 @@ public class ApplicationConfig {
     @Bean(name = "dataSource")
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl("<your RDS url>");
         dataSource.setUsername("<your username>");
         dataSource.setPassword("<your password>");
