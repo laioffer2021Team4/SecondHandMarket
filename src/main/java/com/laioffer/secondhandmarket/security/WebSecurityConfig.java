@@ -1,8 +1,8 @@
-package com.laioffer.SecondHandMarket.security;
+package com.laioffer.secondhandmarket.security;
 
-import com.laioffer.SecondHandMarket.security.jsonwebtoken.AuthEntryPointJasonWebToken;
-import com.laioffer.SecondHandMarket.security.jsonwebtoken.AuthTokenFilter;
-import com.laioffer.SecondHandMarket.security.services.UserDetailsServiceImpl;
+import com.laioffer.secondhandmarket.security.jsonwebtoken.AuthEntryPointJasonWebToken;
+import com.laioffer.secondhandmarket.security.jsonwebtoken.AuthTokenFilter;
+import com.laioffer.secondhandmarket.security.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

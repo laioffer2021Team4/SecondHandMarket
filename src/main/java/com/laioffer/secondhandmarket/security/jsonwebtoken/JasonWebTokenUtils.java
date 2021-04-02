@@ -1,6 +1,6 @@
-package com.laioffer.SecondHandMarket.security.jsonwebtoken;
+package com.laioffer.secondhandmarket.security.jsonwebtoken;
 
-import com.laioffer.SecondHandMarket.security.services.UserDetailsImpl;
+import com.laioffer.secondhandmarket.security.services.UserDetailsImpl;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;

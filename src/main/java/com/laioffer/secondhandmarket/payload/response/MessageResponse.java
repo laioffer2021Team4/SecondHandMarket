@@ -1,4 +1,4 @@
-package com.laioffer.SecondHandMarket.payload.response;
+package com.laioffer.secondhandmarket.payload.response;
 
 public class MessageResponse {
     private String message;

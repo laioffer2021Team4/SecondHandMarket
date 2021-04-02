@@ -1,4 +1,4 @@
-package com.laioffer.SecondHandMarket.controller;
+package com.laioffer.secondhandmarket.controller;
 
 import java.util.HashSet;
 import java.util.List;
@@ -7,17 +7,17 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-import com.laioffer.SecondHandMarket.entity.Role;
-import com.laioffer.SecondHandMarket.entity.User;
-import com.laioffer.SecondHandMarket.entity.UserRole;
-import com.laioffer.SecondHandMarket.payload.request.LoginRequest;
-import com.laioffer.SecondHandMarket.payload.request.SignupRequest;
-import com.laioffer.SecondHandMarket.payload.response.JsonWebTokenResponse;
-import com.laioffer.SecondHandMarket.payload.response.MessageResponse;
-import com.laioffer.SecondHandMarket.repository.RoleRepository;
-import com.laioffer.SecondHandMarket.repository.UserRepository;
-import com.laioffer.SecondHandMarket.security.jsonwebtoken.JasonWebTokenUtils;
-import com.laioffer.SecondHandMarket.security.services.UserDetailsImpl;
+import com.laioffer.secondhandmarket.entity.Role;
+import com.laioffer.secondhandmarket.entity.User;
+import com.laioffer.secondhandmarket.entity.UserRole;
+import com.laioffer.secondhandmarket.payload.request.LoginRequest;
+import com.laioffer.secondhandmarket.payload.request.SignupRequest;
+import com.laioffer.secondhandmarket.payload.response.JsonWebTokenResponse;
+import com.laioffer.secondhandmarket.payload.response.MessageResponse;
+import com.laioffer.secondhandmarket.repository.RoleRepository;
+import com.laioffer.secondhandmarket.repository.UserRepository;
+import com.laioffer.secondhandmarket.security.jsonwebtoken.JasonWebTokenUtils;
+import com.laioffer.secondhandmarket.security.services.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

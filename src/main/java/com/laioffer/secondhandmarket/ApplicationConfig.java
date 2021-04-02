@@ -1,4 +1,4 @@
-package com.laioffer.SecondHandMarket;
+package com.laioffer.secondhandmarket;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ public class ApplicationConfig {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("com.laioffer.SecondHandMarket.entity");
+        sessionFactory.setPackagesToScan("com.laioffer.secondhandmarket.entity");
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }

@@ -1,4 +1,4 @@
-package com.laioffer.SecondHandMarket.clients;
+package com.laioffer.secondhandmarket.clients;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;

@@ -1,9 +1,9 @@
-package com.laioffer.SecondHandMarket.repository;
+package com.laioffer.secondhandmarket.repository;
 
 import java.util.Optional;
 
-import com.laioffer.SecondHandMarket.entity.Role;
-import com.laioffer.SecondHandMarket.entity.UserRole;
+import com.laioffer.secondhandmarket.entity.Role;
+import com.laioffer.secondhandmarket.entity.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

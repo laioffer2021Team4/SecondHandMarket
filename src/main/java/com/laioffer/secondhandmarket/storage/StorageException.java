@@ -1,4 +1,4 @@
-package com.laioffer.SecondHandMarket.storage;
+package com.laioffer.secondhandmarket.storage;
 
 public class StorageException extends RuntimeException {
 

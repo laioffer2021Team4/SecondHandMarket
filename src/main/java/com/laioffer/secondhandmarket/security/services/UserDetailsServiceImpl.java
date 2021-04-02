@@ -1,7 +1,7 @@
-package com.laioffer.SecondHandMarket.security.services;
+package com.laioffer.secondhandmarket.security.services;
 
-import com.laioffer.SecondHandMarket.entity.User;
-import com.laioffer.SecondHandMarket.repository.UserRepository;
+import com.laioffer.secondhandmarket.entity.User;
+import com.laioffer.secondhandmarket.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

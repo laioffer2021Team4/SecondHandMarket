@@ -1,4 +1,4 @@
-package com.laioffer.SecondHandMarket.payload.request;
+package com.laioffer.secondhandmarket.payload.request;
 
 import javax.validation.constraints.NotBlank;
 

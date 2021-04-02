@@ -1,4 +1,4 @@
-package com.laioffer.SecondHandMarket.entity;
+package com.laioffer.secondhandmarket.entity;
 
 
 import javax.persistence.Entity;

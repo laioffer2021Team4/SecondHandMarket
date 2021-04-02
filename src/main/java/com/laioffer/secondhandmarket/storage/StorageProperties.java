@@ -1,4 +1,4 @@
-package com.laioffer.SecondHandMarket.storage;
+package com.laioffer.secondhandmarket.storage;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

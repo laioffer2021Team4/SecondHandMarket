@@ -1,4 +1,4 @@
-package com.laioffer.SecondHandMarket.service;
+package com.laioffer.secondhandmarket.service;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

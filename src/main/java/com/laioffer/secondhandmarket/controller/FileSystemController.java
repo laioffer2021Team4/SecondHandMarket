@@ -1,8 +1,8 @@
-package com.laioffer.SecondHandMarket.controller;
+package com.laioffer.secondhandmarket.controller;
 
 
-import com.laioffer.SecondHandMarket.storage.StorageFileNotFoundException;
-import com.laioffer.SecondHandMarket.storage.StorageService;
+import com.laioffer.secondhandmarket.storage.StorageFileNotFoundException;
+import com.laioffer.secondhandmarket.storage.StorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

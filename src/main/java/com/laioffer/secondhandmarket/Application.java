@@ -1,8 +1,8 @@
-package com.laioffer.SecondHandMarket;
+package com.laioffer.secondhandmarket;
 
 
-import com.laioffer.SecondHandMarket.storage.StorageProperties;
-import com.laioffer.SecondHandMarket.storage.StorageService;
+import com.laioffer.secondhandmarket.storage.StorageProperties;
+import com.laioffer.secondhandmarket.storage.StorageService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

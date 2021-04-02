@@ -1,4 +1,4 @@
-package com.laioffer.SecondHandMarket.payload.response;
+package com.laioffer.secondhandmarket.payload.response;
 
 import java.util.List;
 

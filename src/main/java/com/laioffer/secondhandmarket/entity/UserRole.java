@@ -1,4 +1,4 @@
-package com.laioffer.SecondHandMarket.entity;
+package com.laioffer.secondhandmarket.entity;
 
 public enum UserRole {
     ROLE_USER,

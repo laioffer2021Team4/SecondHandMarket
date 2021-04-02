@@ -1,6 +1,6 @@
-package com.laioffer.SecondHandMarket.dao;
+package com.laioffer.secondhandmarket.dao;
 
-import com.laioffer.SecondHandMarket.entity.Product;
+import com.laioffer.secondhandmarket.entity.Product;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

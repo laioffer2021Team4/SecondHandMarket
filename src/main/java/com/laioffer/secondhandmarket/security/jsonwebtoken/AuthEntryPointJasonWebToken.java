@@ -1,4 +1,4 @@
-package com.laioffer.SecondHandMarket.security.jsonwebtoken;
+package com.laioffer.secondhandmarket.security.jsonwebtoken;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

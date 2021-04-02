@@ -1,7 +1,7 @@
-package com.laioffer.SecondHandMarket.storage;
+package com.laioffer.secondhandmarket.storage;
 
 
-import com.laioffer.SecondHandMarket.clients.AmazonS3Client;
+import com.laioffer.secondhandmarket.clients.AmazonS3Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
