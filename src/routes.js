@@ -11,11 +11,15 @@ import AddNewPost from "./views/AddNewPost";
 import Errors from "./views/Errors";
 import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
-import BlogPosts from "./views/BlogPosts";
+import Home from "./views/Home";
 import Register from "./views/Register"
 import Login from "./views/Login"
+<<<<<<< HEAD
 import PostNewProduct from "./views/PostNewProduct";
 import editPost from "./views/editPost";
+=======
+import ProductsList from "./views/ProductsList"
+>>>>>>> 2beae60d6b941a19cba68c1a2ac72621a5069a5e
 
 export default [
   {
@@ -57,7 +61,7 @@ export default [
   {
     path: "/home",
     layout: DefaultLayout,
-    component: BlogPosts
+    component: Home
   },
   {
     path: "/register",
@@ -70,6 +74,7 @@ export default [
     component: Login
   },
   {
+<<<<<<< HEAD
     path: "/post-new-product",
     layout: DefaultLayout,
     component: PostNewProduct
@@ -78,5 +83,10 @@ export default [
     path: "/edit-post",
     layout: DefaultLayout,
     component: editPost
+=======
+    path: "/myposts",
+    layout: DefaultLayout,
+    component: ProductsList
+>>>>>>> 2beae60d6b941a19cba68c1a2ac72621a5069a5e
   }
 ];
