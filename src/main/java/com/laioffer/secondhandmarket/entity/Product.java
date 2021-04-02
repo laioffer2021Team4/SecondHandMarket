@@ -1,7 +1,22 @@
 package com.laioffer.secondhandmarket.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Column;
+
+import java.util.List;
+
+@Entity
+@Table(name = "product")
 public class Product {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     private String category;
@@ -14,21 +29,28 @@ public class Product {
 
     private double price;
 
+    @ManyToOne
     private Address address;
 
+    @Column(name = "view_number")
     private double viewNumber;
 
+    @Column(name = "post_date")
     private String postDate;
 
+    @Column(name = "is_sold")
     private boolean isSold;
 
+    @ManyToOne
     private Cart cart;
 
+    @ManyToOne
     private SaleList saleList;
 
-    private ProductImage image;
+    @OneToMany
+    private List<ProductImage> image;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -124,11 +146,11 @@ public class Product {
         this.saleList = saleList;
     }
 
-    public ProductImage getImage() {
+    public List<ProductImage> getImage() {
         return image;
     }
 
-    public void setImage(ProductImage image) {
+    public void setImage(List<ProductImage> image) {
         this.image = image;
     }
 }
