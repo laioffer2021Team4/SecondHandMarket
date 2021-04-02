@@ -2,6 +2,7 @@ package com.laioffer.secondhandmarket.service;
 
 import com.laioffer.secondhandmarket.dao.ProductDao;
 import com.laioffer.secondhandmarket.entity.Product;
+import com.laioffer.secondhandmarket.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,31 +12,36 @@ import java.util.List;
 @Service
 public class ProductService extends AbstractService {
 
-    private final ProductDao productDao;
+    // private final ProductDao productDao;
+    private final ProductRepository repository;
 
     @Autowired
-    protected ProductService(EntityManagerFactory factory, ProductDao productDao) {
+    protected ProductService(EntityManagerFactory factory, ProductRepository repository) {
         super(factory);
-        this.productDao = productDao;
+        this.repository = repository;
     }
 
     public List<Product> getAllProducts() {
-        return productDao.getAllProducts();
+        return repository.findAll();
     }
 
     public Product getProductById(int productId) {
-        return productDao.getProductById(productId);
+        return repository.findProductById(productId);
     }
 
     public void deleteProduct(int productId) {
-        productDao.deleteProduct(productId);
+        repository.deleteProductById(productId);
     }
 
     public void addProduct(Product product) {
-        productDao.addProduct(product);
+        repository.save(product);
     }
 
     public void updateProduct(Product product) {
-        productDao.updateProduct(product);
+        repository.save(product);
+    }
+
+    public List<Product> getProductByKeyword(String keyword) {
+        return repository.findByDescriptionContaining(keyword);
     }
 }
