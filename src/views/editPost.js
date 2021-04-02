@@ -15,7 +15,7 @@ const PostNewProduct = () => (
   <Container fluid className="main-content-container px-4 pb-4" style={{display:"flex", justifyContent:"center"}}>
     <div style={{width:"700px"}}>
       <div className="page-header py-4">
-        <h3 style={{textAlign:"center"}}>Post New Product</h3>
+        <h3 style={{textAlign:"center"}}>Edit Post</h3>
       </div>
 
       <Form>

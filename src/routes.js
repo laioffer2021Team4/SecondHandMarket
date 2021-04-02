@@ -15,6 +15,7 @@ import BlogPosts from "./views/BlogPosts";
 import Register from "./views/Register"
 import Login from "./views/Login"
 import PostNewProduct from "./views/PostNewProduct";
+import editPost from "./views/editPost";
 
 export default [
   {
@@ -72,5 +73,10 @@ export default [
     path: "/post-new-product",
     layout: DefaultLayout,
     component: PostNewProduct
+  },
+  {
+    path: "/edit-post",
+    layout: DefaultLayout,
+    component: editPost
   }
 ];
