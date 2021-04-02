@@ -14,8 +14,6 @@ public class ProductImage {
 
     private String url;
 
-    @ManyToOne
-    @JsonIgnore
     private Product product;
 
     public int getId() {
