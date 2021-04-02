@@ -14,6 +14,7 @@ import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
 import Register from "./views/Register"
 import Login from "./views/Login"
+import PostNewProduct from "./views/PostNewProduct";
 
 export default [
   {
@@ -66,5 +67,10 @@ export default [
     path: "/login",
     layout: DefaultLayout,
     component: Login
+  },
+  {
+    path: "/post-new-product",
+    layout: DefaultLayout,
+    component: PostNewProduct
   }
 ];
