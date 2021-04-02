@@ -14,12 +14,9 @@ import Tables from "./views/Tables";
 import Home from "./views/Home";
 import Register from "./views/Register"
 import Login from "./views/Login"
-<<<<<<< HEAD
-import PostNewProduct from "./views/PostNewProduct";
-import editPost from "./views/editPost";
-=======
 import ProductsList from "./views/ProductsList"
->>>>>>> 2beae60d6b941a19cba68c1a2ac72621a5069a5e
+import PostNewProduct from "./views/PostNewProduct";
+import EditPost from "./views/EditPost";
 
 export default [
   {
@@ -74,19 +71,18 @@ export default [
     component: Login
   },
   {
-<<<<<<< HEAD
-    path: "/post-new-product",
+    path: "/myposts",
     layout: DefaultLayout,
-    component: PostNewProduct
+    component: ProductsList
   },
   {
     path: "/edit-post",
     layout: DefaultLayout,
-    component: editPost
-=======
-    path: "/myposts",
+    component: EditPost
+  },
+  {
+    path: "/post-new-product",
     layout: DefaultLayout,
-    component: ProductsList
->>>>>>> 2beae60d6b941a19cba68c1a2ac72621a5069a5e
+    component: PostNewProduct
   }
 ];
