@@ -11,6 +11,7 @@ import com.laioffer.secondhandmarket.entity.Role;
 import com.laioffer.secondhandmarket.entity.User;
 import com.laioffer.secondhandmarket.entity.UserRole;
 import com.laioffer.secondhandmarket.payload.request.LoginRequest;
+import com.laioffer.secondhandmarket.payload.request.LogoutRequest;
 import com.laioffer.secondhandmarket.payload.request.SignupRequest;
 import com.laioffer.secondhandmarket.payload.response.JsonWebTokenResponse;
 import com.laioffer.secondhandmarket.payload.response.MessageResponse;
@@ -59,7 +60,7 @@ public class AuthController {
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
+        String jwt = jwtUtils.generateJwtToken(authentication, loginRequest.getUsername());
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
@@ -110,5 +111,12 @@ public class AuthController {
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LogoutRequest logoutRequest) {
+        JasonWebTokenUtils.invalidateRelatedTokens(logoutRequest);
+        return ResponseEntity.ok(new MessageResponse("User Logged out successfully!"));
     }
 }

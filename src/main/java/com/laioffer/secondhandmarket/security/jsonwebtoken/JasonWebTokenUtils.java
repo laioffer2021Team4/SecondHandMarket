@@ -1,5 +1,7 @@
 package com.laioffer.secondhandmarket.security.jsonwebtoken;
 
+import com.laioffer.secondhandmarket.cache.RedisUtil;
+import com.laioffer.secondhandmarket.payload.request.LogoutRequest;
 import com.laioffer.secondhandmarket.security.services.UserDetailsImpl;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -18,6 +20,7 @@ import java.util.Date;
 @Component
 public class JasonWebTokenUtils {
     private static final Logger logger = LoggerFactory.getLogger(JasonWebTokenUtils.class);
+    private static final String REDIS_SET_ACTIVE_SUBJECTS = "active-subjects";
 
     @Value("${bezkoder.app.jwtSecret}")
     private String jwtSecret;
@@ -25,9 +28,11 @@ public class JasonWebTokenUtils {
     @Value("${bezkoder.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
-    public String generateJwtToken(Authentication authentication) {
+    public String generateJwtToken(Authentication authentication, String userEmail) {
 
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+
+        RedisUtil.INSTANCE.addToCache(REDIS_SET_ACTIVE_SUBJECTS, userEmail);
 
         return Jwts.builder()
                 .setSubject((userPrincipal.getEmail()))
@@ -44,7 +49,8 @@ public class JasonWebTokenUtils {
     public boolean validateJwtToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
-            return true;
+            return RedisUtil.INSTANCE.isInCache(REDIS_SET_ACTIVE_SUBJECTS, getUserEmailFromJwtToken(authToken));
+
         } catch (SignatureException e) {
             logger.error("Invalid JWT signature: {}", e.getMessage());
         } catch (MalformedJwtException e) {
@@ -58,5 +64,9 @@ public class JasonWebTokenUtils {
         }
 
         return false;
+    }
+
+    public static void invalidateRelatedTokens(LogoutRequest logoutRequest) {
+        RedisUtil.INSTANCE.removeFromCache(REDIS_SET_ACTIVE_SUBJECTS, logoutRequest.getUsername());
     }
 }
