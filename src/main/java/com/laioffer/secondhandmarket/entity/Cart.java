@@ -1,11 +1,34 @@
 package com.laioffer.secondhandmarket.entity;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
-public class Cart {
+@Entity
+@Table(name = "cart")
+public class Cart implements Serializable {
+
+    private static final long serialVersionUID = 332991482619527894L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
     private double totalPrice;
-    private List<Product> productList;
+
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<CartItem> productList;
+
+    @OneToOne(mappedBy = "cart")
     private Customer customer;
 
     public int getId() {
@@ -25,11 +48,11 @@ public class Cart {
         this.totalPrice = totalPrice;
     }
 
-    public List<Product> getProductList() {
+    public Set<CartItem> getProductList() {
         return productList;
     }
 
-    public void setProductList(List<Product> productList) {
+    public void setProductList(Set<CartItem> productList) {
         this.productList = productList;
     }
 

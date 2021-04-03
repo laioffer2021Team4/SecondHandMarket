@@ -1,5 +1,7 @@
 package com.laioffer.secondhandmarket.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -19,6 +21,10 @@ public class Address implements Serializable {
     private String state;
     private String zipcode;
     private String country;
+
+    @ManyToOne
+    @JsonIgnore
+    private Customer customer;
 
     public int getId() {
         return id;
@@ -46,6 +52,10 @@ public class Address implements Serializable {
 
     public String getCountry() {
         return country;
+    }
+
+    public Customer getCustomer() {
+        return customer;
     }
 
     public void setId(int id) {
@@ -76,4 +86,7 @@ public class Address implements Serializable {
         this.country = country;
     }
 
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 }

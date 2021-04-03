@@ -1,6 +1,10 @@
 package com.laioffer.secondhandmarket.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -42,12 +46,10 @@ public class Product {
     private boolean isSold;
 
     @ManyToOne
-    private Cart cart;
-
-    @ManyToOne
+    @JsonIgnore
     private SaleList saleList;
 
-    @OneToMany
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ProductImage> image;
 
     public long getId() {
@@ -88,10 +90,6 @@ public class Product {
 
     public boolean isSold() {
         return isSold;
-    }
-
-    public Cart getCart() {
-        return cart;
     }
 
     public SaleList getSaleList() {
@@ -136,10 +134,6 @@ public class Product {
 
     public void setSold(boolean sold) {
         isSold = sold;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
     }
 
     public void setSaleList(SaleList saleList) {

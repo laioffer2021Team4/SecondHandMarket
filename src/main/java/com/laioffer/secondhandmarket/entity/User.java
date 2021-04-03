@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
@@ -43,8 +44,8 @@ public class User implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-//    @OneToOne(mappedBy = "user")
-//    private Customer customer;
+    @OneToOne(mappedBy = "user")
+    private Customer customer;
 
     public User() {
 
@@ -79,9 +80,9 @@ public class User implements Serializable {
         return password;
     }
 
-//    public Customer getCustomer() {
-//        return customer;
-//    }
+    public Customer getCustomer() {
+        return customer;
+    }
 
     public void setEmail(String emailId) {
         this.email = emailId;
@@ -91,7 +92,7 @@ public class User implements Serializable {
         this.password = password;
     }
 
-//    public void setCustomer(Customer customer) {
-//        this.customer = customer;
-//    }
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 }
