@@ -22,10 +22,10 @@ public class JasonWebTokenUtils {
     private static final Logger logger = LoggerFactory.getLogger(JasonWebTokenUtils.class);
     private static final String REDIS_SET_ACTIVE_SUBJECTS = "active-subjects";
 
-    @Value("${bezkoder.app.jwtSecret}")
+    @Value("${secondhandmarket.app.jwtSecret}")
     private String jwtSecret;
 
-    @Value("${bezkoder.app.jwtExpirationMs}")
+    @Value("${secondhandmarket.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
     public String generateJwtToken(Authentication authentication, String userEmail) {
