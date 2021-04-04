@@ -11,7 +11,6 @@ import {
   FormGroup,
   FormInput,
   FormSelect,
-  FormTextarea,
   Button
 } from "shards-react";
 
@@ -108,13 +107,6 @@ const UserAccountDetails = ({ title }) => (
                     placeholder="Zip"
                     onChange={() => {}}
                   />
-                </Col>
-              </Row>
-              <Row form>
-                {/* Description */}
-                <Col md="12" className="form-group">
-                  <label htmlFor="feDescription">Description</label>
-                  <FormTextarea id="feDescription" rows="5" />
                 </Col>
               </Row>
               <Button theme="accent">Update Account</Button>
