@@ -2,6 +2,7 @@ import React from "react";
 import {Nav, NavItem, NavLink} from "shards-react"
 import {Link} from "react-router-dom"
 import PropTypes from "prop-types";
+import UserActions from "./UserActions"
 
 
 const NavMenu = ({ menuItems }) => (
@@ -13,6 +14,7 @@ const NavMenu = ({ menuItems }) => (
               </NavLink>
             </NavItem>
           ))}
+
         </Nav>
 );
 
