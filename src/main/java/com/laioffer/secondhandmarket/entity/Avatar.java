@@ -1,6 +1,8 @@
 package com.laioffer.secondhandmarket.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "avatar")
 public class Avatar implements Serializable {
@@ -26,27 +30,4 @@ public class Avatar implements Serializable {
     @JsonIgnore
     private Customer customer;
 
-    public int getId() {
-        return id;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
 }

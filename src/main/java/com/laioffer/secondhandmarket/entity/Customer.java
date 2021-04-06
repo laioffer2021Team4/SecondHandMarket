@@ -54,4 +54,7 @@ public class Customer implements Serializable {
     @JoinColumn(unique = true)
     private SaleList saleList;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(unique = true)
+    private Avatar avatar;
 }
