@@ -52,7 +52,7 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ProductImage> image;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
