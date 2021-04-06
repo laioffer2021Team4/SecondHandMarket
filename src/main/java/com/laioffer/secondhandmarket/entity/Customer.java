@@ -43,6 +43,10 @@ public class Customer implements Serializable {
     @JoinColumn(unique = true)
     private SaleList saleList;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(unique = true)
+    private Avatar avatar;
+
     public int getId() {
         return id;
     }
@@ -75,6 +79,10 @@ public class Customer implements Serializable {
         return saleList;
     }
 
+    public Avatar getAvatar() {
+        return avatar;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -105,5 +113,9 @@ public class Customer implements Serializable {
 
     public void setSaleList(SaleList saleList) {
         this.saleList = saleList;
+    }
+
+    public void setAvatar(Avatar avatar) {
+        this.avatar = avatar;
     }
 }
