@@ -1,21 +1,10 @@
 package com.laioffer.secondhandmarket.payload.request;
 
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
-public class SignupRequest {
-
-    @NotBlank
-    @Size(max = 50)
-    private String email;
-
-    private Set<String> role;
-
-    @NotBlank
-    @Size(min = 6, max = 40)
-    private String password;
+public class AddCustomerRequest {
 
     private String firstname;
     private String lastname;
@@ -25,6 +14,7 @@ public class SignupRequest {
     private String state;
     private String zipcode;
     private String country;
+    private String email;
 
     public String getFirstname() {
         return firstname;
@@ -97,21 +87,4 @@ public class SignupRequest {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Set<String> getRole() {
-        return this.role;
-    }
-
-    public void setRole(Set<String> role) {
-        this.role = role;
-    }
 }
-

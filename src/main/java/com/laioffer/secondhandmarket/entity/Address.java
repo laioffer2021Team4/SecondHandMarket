@@ -1,10 +1,26 @@
 package com.laioffer.secondhandmarket.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.io.Serializable;
 
+@Builder(toBuilder = true)
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 @Entity
 @Table(name = "address")
 public class Address implements Serializable {
@@ -18,7 +34,7 @@ public class Address implements Serializable {
     private AddressType type;
     private String street;
     private String city;
-    private String state;
+    private String states;
     private String zipcode;
     private String country;
 
@@ -26,67 +42,4 @@ public class Address implements Serializable {
     @JsonIgnore
     private Customer customer;
 
-    public int getId() {
-        return id;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public AddressType getType() {
-        return type;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public String getZipcode() {
-        return zipcode;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setType(AddressType type) {
-        this.type = type;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
 }

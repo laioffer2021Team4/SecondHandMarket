@@ -1,5 +1,11 @@
 package com.laioffer.secondhandmarket.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,9 +17,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Set;
 
+
+@Builder(toBuilder = true)
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 @Entity
 @Table(name = "customer")
 public class Customer implements Serializable {
@@ -32,7 +43,7 @@ public class Customer implements Serializable {
     @JoinColumn(unique = true)
     private User user;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Address> address;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -43,79 +54,4 @@ public class Customer implements Serializable {
     @JoinColumn(unique = true)
     private SaleList saleList;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(unique = true)
-    private Avatar avatar;
-
-    public int getId() {
-        return id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getCustomerPhone() {
-        return customerPhone;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public Set<Address> getAddress() {
-        return address;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public SaleList getSaleList() {
-        return saleList;
-    }
-
-    public Avatar getAvatar() {
-        return avatar;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setCustomerPhone(String customerPhone) {
-        this.customerPhone = customerPhone;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setAddress(Set<Address> address) {
-        this.address = address;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
-
-    public void setSaleList(SaleList saleList) {
-        this.saleList = saleList;
-    }
-
-    public void setAvatar(Avatar avatar) {
-        this.avatar = avatar;
-    }
 }
