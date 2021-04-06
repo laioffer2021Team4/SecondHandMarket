@@ -2,6 +2,7 @@
 
 import React from "react";
 import AddIcon from '@material-ui/icons/Add';
+import withAuth from "../components/auth/withAuth.js"
 
 import {
   Container,
@@ -27,7 +28,6 @@ class BlogPosts extends React.Component {
           backgroundImage: require("../images/content-management/2.jpeg"),
           name: "Item name2"
         }
-
       ]
     };
   }
@@ -79,13 +79,9 @@ class BlogPosts extends React.Component {
             </Col>
           </Row>
         </div>
-
-
-
-
       </Container>
     );
   }
 }
 
-export default BlogPosts;
+export default withAuth(BlogPosts);
