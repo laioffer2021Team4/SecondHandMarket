@@ -1,7 +1,12 @@
 package com.laioffer.secondhandmarket.payload.request;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.validation.constraints.NotBlank;
 
+@Setter
+@Getter
 public class LogoutRequest {
     @NotBlank
     private String email;

@@ -6,6 +6,7 @@ import com.laioffer.secondhandmarket.entity.Customer;
 import com.laioffer.secondhandmarket.entity.User;
 import com.laioffer.secondhandmarket.payload.request.SignupRequest;
 import com.laioffer.secondhandmarket.repository.CustomerRepository;
+import com.laioffer.secondhandmarket.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class CustomerService {
 
     @Autowired
     CustomerRepository customerRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     public void createCustomer(SignupRequest signupRequest, User user) {
 
@@ -54,5 +58,13 @@ public class CustomerService {
             logger.error("Failed to create new customer {}", e.getMessage());
 
         }
+    }
+
+    public Customer getCustomer(String email) {
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Didn't find Customer Data by User Email: " + email));
+        return customerRepository.findByUser(user)
+                .orElseThrow(() -> new RuntimeException("Didn't find User Data by Email: " + email));
     }
 }

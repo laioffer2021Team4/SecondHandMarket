@@ -45,15 +45,15 @@ public class AuthController {
     @Autowired
     AuthService authService;
 
-    @PostMapping("/signin")
+    @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         JsonWebTokenResponse jsonWebTokenResponse =
-                authService.authenticateUser(loginRequest.getUsername(), loginRequest.getPassword());
+                authService.authenticateUser(loginRequest.getEmail(), loginRequest.getPassword());
 
         return ResponseEntity.ok(jsonWebTokenResponse);
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
