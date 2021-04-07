@@ -1,15 +1,31 @@
-import React from "react";
+import React, {Component} from "react";
 import { Nav } from "shards-react";
 import NavMenu from "./NavMenu"
 import UserActions from "./UserActions"
+import authService from "../../../../auth/authService"
 
 
 
-export default () => (
-  <Nav navbar className="border-left flex-row">
-    {/*<Notifications />*/}
+ class NavbarNav extends Component {
+   constructor(props) {
+     super(props);
+     this.state={isAuth: undefined};
+   }
+   componentDidMount() {
+     if(authService.getCurrentUser() && authService.getCurrentUser().accessToken ){
+       this.setState({isAuth: true});
+     } else{
+       this.setState({isAuth: false});
+     }
+   }
+  render(){
+    return(
+      <Nav navbar className="border-left flex-row">
+        {/*  <Notifications />*/}
+        { this.state.isAuth? <UserActions/> : <NavMenu/> }
+      </Nav>
+    )
+  }
 
-    <NavMenu />
-    <UserActions />
-  </Nav>
-);
+}
+export default NavbarNav;

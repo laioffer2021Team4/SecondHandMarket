@@ -31,11 +31,6 @@ export default [
     component: BlogOverview
   },
   {
-    path: "/user-profile-lite",
-    layout: DefaultLayout,
-    component: UserProfileLite
-  },
-  {
     path: "/add-new-post",
     layout: DefaultLayout,
     component: AddNewPost
@@ -84,5 +79,10 @@ export default [
     path: "/post-new-product",
     layout: DefaultLayout,
     component: PostNewProduct
+  },
+  {
+    path: "/profile",
+    layout: DefaultLayout,
+    component: UserProfileLite
   }
 ];

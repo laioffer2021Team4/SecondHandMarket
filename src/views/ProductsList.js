@@ -13,7 +13,7 @@ import {
 } from "shards-react";
 
 
-class BlogPosts extends React.Component {
+class ProductPosts extends React.Component {
   constructor(props) {
     super(props);
 
@@ -66,7 +66,7 @@ class BlogPosts extends React.Component {
             <Col lg="3" md="6" sm="12" className="mb-4" >
               <Card className="card-post card-post--1">
                 <div className="card-post__image" style={{ display:"flex", justifyContent:"center" }}>
-                  <a href="#">
+                  <a href="/post-new-product">
                     <AddIcon style={{ fontSize: "100px", marginTop:"50px" }}/>
                   </a>
                 </div>
@@ -84,4 +84,4 @@ class BlogPosts extends React.Component {
   }
 }
 
-export default withAuth(BlogPosts);
+export default withAuth(ProductPosts);
