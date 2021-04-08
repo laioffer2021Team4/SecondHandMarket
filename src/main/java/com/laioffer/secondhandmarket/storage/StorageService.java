@@ -3,6 +3,7 @@ package com.laioffer.secondhandmarket.storage;
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
@@ -10,7 +11,7 @@ public interface StorageService {
 
     void init();
 
-    void store(MultipartFile file) throws Exception;
+    String store(MultipartFile file) throws Exception;
 
     Stream<Path> loadAll();
 
@@ -19,5 +20,7 @@ public interface StorageService {
     Resource loadAsResource(String filename);
 
     void deleteAll();
+
+    byte[] getByteArrayFromFile(String url) throws IOException;
 
 }

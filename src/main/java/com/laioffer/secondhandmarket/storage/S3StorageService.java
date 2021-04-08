@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -32,7 +35,7 @@ public class S3StorageService implements StorageService {
     }
 
     @Override
-    public void store(MultipartFile file) throws Exception {
+    public String store(MultipartFile file) throws Exception {
         try {
             if (file.isEmpty()) {
                 throw new StorageException("Failed to store empty file.");
@@ -49,7 +52,7 @@ public class S3StorageService implements StorageService {
                 Files.copy(inputStream, destinationFile,
                         StandardCopyOption.REPLACE_EXISTING);
             }
-            amazonS3Client.uploadFile(file);
+            return amazonS3Client.uploadFile(file);
         } catch (IOException e) {
             throw new StorageException("Failed to store file.", e);
         }
@@ -91,6 +94,17 @@ public class S3StorageService implements StorageService {
     @Override
     public void deleteAll() {
         FileSystemUtils.deleteRecursively(rootLocation.toFile());
+    }
+
+    @Override
+    public byte[] getByteArrayFromFile(String fileName) throws IOException {
+            InputStream in = amazonS3Client.getFileFromS3Bucket(fileName).getObjectContent();
+            BufferedImage imageFromAWS = ImageIO.read(in);
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            ImageIO.write(imageFromAWS, "png", byteArrayOutputStream);
+            byte[] imageBytes = byteArrayOutputStream.toByteArray();
+            in.close();
+            return imageBytes;
     }
 
     @Override

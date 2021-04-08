@@ -18,6 +18,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Objects;
+import java.util.UUID;
+
+import static java.util.UUID.randomUUID;
 
 @Service
 @PropertySource("classpath:application.properties")
@@ -48,17 +51,15 @@ public class AmazonS3Client {
 
     public String uploadFile(MultipartFile multipartFile)
             throws Exception {
-        String fileUrl = "";
         File file = convertMultiPartToFile(multipartFile);
-        String fileName = generateFileName(multipartFile);
-        fileUrl = endpointUrl + "/" + bucketName + "/" + fileName;
+        String fileName = randomUUID().toString();
         uploadFileTos3bucket(fileName, file);
         file.delete();
-        return fileUrl;
+        return fileName;
     }
 
-    public S3Object getFileFromS3Bucket(String fileUrl) {
-        return s3client.getObject(bucketName, getFileNameFromFileURL(fileUrl));
+    public S3Object getFileFromS3Bucket(String fileName) {
+        return s3client.getObject(bucketName, fileName);
     }
 
     public String deleteFileFromS3Bucket(String fileUrl) {
