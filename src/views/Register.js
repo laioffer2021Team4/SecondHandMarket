@@ -75,16 +75,18 @@ class Register extends Component {
   }
 
 
-
   handleRegister = e=>{
     e.preventDefault();
     const {email,password, firstName, lastName, street, city, state, zip} = this.state;
     AuthService.register(email, password, firstName, lastName, street, city, state, zip).then(
       () => {
-        this.props.history.push("/");
-        window.location.reload();
-      });
-
+       return AuthService.login(email, password)
+      })
+      .then(
+        () => {
+          this.props.history.push("/");
+          window.location.reload();
+        });
   }
 
   render(){

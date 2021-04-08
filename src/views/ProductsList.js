@@ -32,6 +32,8 @@ class ProductPosts extends React.Component {
     };
   }
 
+
+
   render() {
     const {  PostsListOne   } = this.state;
 

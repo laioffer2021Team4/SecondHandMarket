@@ -9,15 +9,15 @@ import {
   NavItem,
   NavLink
 } from "shards-react";
+import AuthService from "../../../../auth/authService"
 
 export default class UserActions extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      visible: false
+      visible: false,
+      userName: ""
     };
-
     this.toggleUserActions = this.toggleUserActions.bind(this);
   }
 
@@ -26,19 +26,32 @@ export default class UserActions extends React.Component {
       visible: !this.state.visible
     });
   }
+  handleLogout = e=>{
+    e.preventDefault();
+    AuthService.logout();
+    window.location.href="/";
+  }
+
+  componentDidMount() {
+    let userInfo = AuthService.getCurrentUser();
+    this.setState({
+      userName: userInfo.email
+    })
+
+  }
 
   render() {
-
 
     return (
       <NavItem tag={Dropdown} caret toggle={this.toggleUserActions}>
         <DropdownToggle caret tag={NavLink} className="text-nowrap px-3">
           <img
             className="user-avatar rounded-circle mr-2"
-            src={require("./../../../../images/avatars/0.jpg")}
+            src={require("./../../../../images/avatars/user.png")}
             alt="User Avatar"
+            style={{padding:"4px"}}
           />{" "}
-          <span className="d-none d-md-inline-block">Sierra Brooks</span>
+          <span className="d-none d-md-inline-block">{this.state.userName}</span>
         </DropdownToggle>
         <Collapse tag={DropdownMenu} right small open={this.state.visible}>
           <DropdownItem tag={Link} to="profile">
@@ -54,7 +67,7 @@ export default class UserActions extends React.Component {
             <i className="material-icons">&#xE896;</i> My posts
           </DropdownItem>
           <DropdownItem divider />
-          <DropdownItem tag={Link} to="/" className="text-danger">
+          <DropdownItem onClick={this.handleLogout} className="text-danger">
             <i className="material-icons text-danger">&#xE879;</i> Logout
           </DropdownItem>
         </Collapse>
