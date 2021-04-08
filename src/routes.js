@@ -17,6 +17,7 @@ import Login from "./views/Login"
 import ProductsList from "./views/ProductsList"
 import PostNewProduct from "./views/PostNewProduct";
 import EditPost from "./views/EditPost";
+import ProductDetail from "./views/ProductDetail"
 
 export default [
   {
@@ -84,5 +85,10 @@ export default [
     path: "/profile",
     layout: DefaultLayout,
     component: UserProfileLite
+  },
+  {
+    path: "/product-detail",
+    layout: DefaultLayout,
+    component: ProductDetail
   }
 ];
