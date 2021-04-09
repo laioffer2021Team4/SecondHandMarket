@@ -66,8 +66,10 @@ public class AuthService {
     public void registerUser(SignupRequest signupRequest) {
 
         // Create new user's account
-        User user = new User(signupRequest.getEmail(),
-                encoder.encode(signupRequest.getPassword()));
+       User user = User.builder()
+               .email(signupRequest.getEmail())
+               .password(encoder.encode(signupRequest.getPassword()))
+               .build();
 
         Set<String> strRoles = signupRequest.getRole();
         Set<Role> roles = new HashSet<>();

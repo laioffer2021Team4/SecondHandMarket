@@ -1,6 +1,11 @@
 package com.laioffer.secondhandmarket.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +15,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 
+@Builder(toBuilder = true)
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
 @Entity
 @Table(name = "image")
 public class ProductImage implements Serializable {
@@ -20,33 +30,10 @@ public class ProductImage implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    private String url;
+    private String uuid;
 
     @ManyToOne
     @JsonIgnore
     private Product product;
 
-    public int getId() {
-        return id;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
 }

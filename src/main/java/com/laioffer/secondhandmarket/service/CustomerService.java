@@ -38,13 +38,13 @@ public class CustomerService {
                     .city(signupRequest.getCity())
                     .states(signupRequest.getState())
                     .zipcode(signupRequest.getZipcode())
-                    .country(signupRequest.getCountry())
+                    //.country(signupRequest.getCountry())
                     .type(AddressType.Billing)
                     .build();
             Set<Address> addressSet = new HashSet<>();
             addressSet.add(address);
             Customer customer = Customer.builder()
-                    .customerPhone(signupRequest.getPhone())
+                    //.customerPhone(signupRequest.getPhone())
                     .address(addressSet)
                     .firstName(signupRequest.getFirstname())
                     .lastName(signupRequest.getLastname())

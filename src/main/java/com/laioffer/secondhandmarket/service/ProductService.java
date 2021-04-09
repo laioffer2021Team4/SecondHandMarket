@@ -3,25 +3,21 @@ package com.laioffer.secondhandmarket.service;
 import com.laioffer.secondhandmarket.entity.Product;
 import com.laioffer.secondhandmarket.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManagerFactory;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Service
-public class ProductService extends AbstractService {
+@Component
+public class ProductService {
 
     // private final ProductDao productDao;
-    private final ProductRepository repository;
-
     @Autowired
-    protected ProductService(EntityManagerFactory factory, ProductRepository repository) {
-        super(factory);
-        this.repository = repository;
-    }
+    private ProductRepository repository;
 
     public List<Product> getAllProducts() {
         return repository.findAll();

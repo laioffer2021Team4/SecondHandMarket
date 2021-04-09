@@ -43,7 +43,8 @@ public class Customer implements Serializable {
     @JoinColumn(unique = true)
     private User user;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name="customer_id")
     private Set<Address> address;
 
     @OneToOne(cascade = CascadeType.ALL)
