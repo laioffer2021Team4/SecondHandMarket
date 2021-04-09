@@ -99,12 +99,12 @@ const UserAccountDetails = ({ title }) => (
                     <option>...</option>
                   </FormSelect>
                 </Col>
-                {/* Zip Code */}
+                {/* zipcode Code */}
                 <Col md="2" className="form-group">
-                  <label htmlFor="feZipCode">Zip</label>
+                  <label htmlFor="fezipcodeCode">zipcode</label>
                   <FormInput
-                    id="feZipCode"
-                    placeholder="Zip"
+                    id="fezipcodeCode"
+                    placeholder="zipcode"
                     onChange={() => {}}
                   />
                 </Col>

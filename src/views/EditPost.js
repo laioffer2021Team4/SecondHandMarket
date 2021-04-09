@@ -50,7 +50,7 @@ const PostNewProduct = () => (
           <label htmlFor="custAddress">Address</label>
           <FormInput id="custAddress" placeholder="1234 Main St" />
         </FormGroup>
-        {/* city state zipcode */}
+        {/* city state zipcodecode */}
         <Row form>
           <Col md="6" className="form-group">
             <label htmlFor="custCity">City</label>
@@ -113,8 +113,8 @@ const PostNewProduct = () => (
             </FormSelect>
           </Col>
           <Col md="2" className="form-group">
-            <label htmlFor="custZip">Zip</label>
-            <FormInput id="custZip" />
+            <label htmlFor="custzipcode">zipcode</label>
+            <FormInput id="custzipcode" />
           </Col>
         </Row>
         {/* product Description */}
