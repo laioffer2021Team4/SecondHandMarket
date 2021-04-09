@@ -28,7 +28,8 @@ public class ProductService extends AbstractService {
     }
 
     public Product getProductById(int productId) {
-        return repository.findProductById(productId);
+        return repository.findProductById(productId)
+                .orElseThrow(() -> new RuntimeException("Product with id: " + productId + " does not exist"));
     }
 
     public void deleteProduct(int productId) {

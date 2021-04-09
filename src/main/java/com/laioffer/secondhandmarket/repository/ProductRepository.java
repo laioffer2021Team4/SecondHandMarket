@@ -12,7 +12,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     List<Product> findAll();
 
-    Product findProductById(int id);
+    Optional<Product> findProductById(int id);
 
     void deleteProductById(int id);
 
