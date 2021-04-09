@@ -15,8 +15,8 @@ class Register extends Component {
     this.handleRegister = this.handleRegister.bind(this);
     this.onChangeEmail= this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
-    this.onChangeFirstName = this.onChangeFirstName.bind(this);
-    this.onChangeLastName = this.onChangeLastName.bind(this);
+    this.onChangefirstname = this.onChangefirstname.bind(this);
+    this.onChangelastname = this.onChangelastname.bind(this);
     this.onChangeStreet = this.onChangeStreet.bind(this);
     this.onChangeCity = this.onChangeCity.bind(this);
     this.onChangeState = this.onChangeState.bind(this);
@@ -24,8 +24,8 @@ class Register extends Component {
     this.state = {
       email: "",
       password: "",
-      firstName: "",
-      lastName: "",
+      firstname: "",
+      lastname: "",
       address: "",
       city: "",
       state: "",
@@ -43,14 +43,14 @@ class Register extends Component {
       password: e.target.value
     });
   }
-  onChangeFirstName(e) {
+  onChangefirstname(e) {
     this.setState({
-      firstName: e.target.value
+      firstname: e.target.value
     });
   }
-  onChangeLastName(e) {
+  onChangelastname(e) {
     this.setState({
-      lastName: e.target.value
+      lastname: e.target.value
     });
   }
   onChangeStreet(e) {
@@ -77,8 +77,8 @@ class Register extends Component {
 
   handleRegister = e=>{
     e.preventDefault();
-    const {email,password, firstName, lastName, street, city, state, zip} = this.state;
-    AuthService.register(email, password, firstName, lastName, street, city, state, zip).then(
+    const {email,password, firstname, lastname, street, city, state, zip} = this.state;
+    AuthService.register(email, password, firstname, lastname, street, city, state, zip).then(
       () => {
        return AuthService.login(email, password)
       })
@@ -127,22 +127,22 @@ class Register extends Component {
             <Row form>
             {/* First Name */}
               <Col md="6" className="form-group">
-              <label htmlFor="feFirstName">First Name</label>
+              <label htmlFor="fefirstname">First Name</label>
               <FormInput
-                id="feFirstName"
+                id="fefirstname"
                 placeholder="First Name"
-                value={this.state.firstName}
-                onChange={this.onChangeFirstName}
+                value={this.state.firstname}
+                onChange={this.onChangefirstname}
               />
             </Col>
             {/* Last Name */}
               <Col md="6" className="form-group">
-                <label htmlFor="feLastName">Last Name</label>
+                <label htmlFor="felastname">Last Name</label>
                 <FormInput
-                  id="feLastName"
+                  id="felastname"
                   placeholder="Last Name"
-                  value={this.state.lastName}
-                  onChange={this.onChangeLastName}
+                  value={this.state.lastname}
+                  onChange={this.onChangelastname}
                 />
               </Col>
             </Row>

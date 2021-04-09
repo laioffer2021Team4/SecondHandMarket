@@ -27,9 +27,9 @@ const UserAccountDetails = ({ title }) => (
               <Row form>
                 {/* First Name */}
                 <Col md="6" className="form-group">
-                  <label htmlFor="feFirstName">First Name</label>
+                  <label htmlFor="fefirstname">First Name</label>
                   <FormInput
-                    id="feFirstName"
+                    id="fefirstname"
                     placeholder="First Name"
                     value="Sierra"
                     onChange={() => {}}
@@ -37,9 +37,9 @@ const UserAccountDetails = ({ title }) => (
                 </Col>
                 {/* Last Name */}
                 <Col md="6" className="form-group">
-                  <label htmlFor="feLastName">Last Name</label>
+                  <label htmlFor="felastname">Last Name</label>
                   <FormInput
-                    id="feLastName"
+                    id="felastname"
                     placeholder="Last Name"
                     value="Brooks"
                     onChange={() => {}}
