@@ -67,4 +67,9 @@ public class CustomerService {
         return customerRepository.findByUser(user)
                 .orElseThrow(() -> new RuntimeException("Didn't find User Data by Email: " + email));
     }
+
+    public Customer getCustomerById(int id) {
+        return customerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Customer with id: " + id + " does not exist"));
+    }
 }
