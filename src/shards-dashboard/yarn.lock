@@ -407,7 +407,7 @@ bundlesize@^0.15.3:
     commander "^2.11.0"
     github-build "^1.2.0"
     glob "^7.1.2"
-    gzipcode-size "^4.0.0"
+    gzip-size "^4.0.0"
     opencollective "^1.0.3"
     prettycli "^1.4.3"
     read-pkg-up "^2.0.0"
@@ -1403,9 +1403,9 @@ gulplog@^1.0.0:
   dependencies:
     glogg "^1.0.0"
 
-gzipcode-size@^4.0.0:
+gzip-size@^4.0.0:
   version "4.1.0"
-  resolved "https://registry.yarnpkg.com/gzipcode-size/-/gzipcode-size-4.1.0.tgz#8ae096257eabe7d69c45be2b67c448124ffb517c"
+  resolved "https://registry.yarnpkg.com/gzip-size/-/gzip-size-4.1.0.tgz#8ae096257eabe7d69c45be2b67c448124ffb517c"
   dependencies:
     duplexer "^0.1.1"
     pify "^3.0.0"

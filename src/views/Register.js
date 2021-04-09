@@ -20,7 +20,7 @@ class Register extends Component {
     this.onChangeStreet = this.onChangeStreet.bind(this);
     this.onChangeCity = this.onChangeCity.bind(this);
     this.onChangeState = this.onChangeState.bind(this);
-    this.onChangezipcode = this.onChangezipcode.bind(this);
+    this.onChangeZip = this.onChangeZip.bind(this);
     this.state = {
       email: "",
       password: "",
@@ -29,7 +29,7 @@ class Register extends Component {
       address: "",
       city: "",
       state: "",
-      zipcode: ""
+      zip: ""
     };
   }
 
@@ -68,17 +68,17 @@ class Register extends Component {
       state: e.target.value
     });
   }
-  onChangezipcode(e) {
+  onChangeZip(e) {
     this.setState({
-      zipcode: e.target.value
+      zip: e.target.value
     });
   }
 
 
   handleRegister = e=>{
     e.preventDefault();
-    const {email,password, firstname, lastname, street, city, state, zipcode} = this.state;
-    AuthService.register(email, password, firstname, lastname, street, city, state, zipcode).then(
+    const {email,password, firstname, lastname, street, city, state, zip} = this.state;
+    AuthService.register(email, password, firstname, lastname, street, city, state, zip).then(
       () => {
        return AuthService.login(email, password)
       })
@@ -176,14 +176,14 @@ class Register extends Component {
                 onChange={this.onChangeState}
               />
             </Col>
-            {/* zipcode Code */}
+            {/* Zip Code */}
             <Col md="3" className="form-group">
-              <label htmlFor="fezipcodeCode">zipcode</label>
+              <label htmlFor="feZipCode">Zip</label>
               <FormInput
-                id="fezipcodeCode"
-                placeholder="zipcode code"
-                value={this.state.zipcode}
-                onChange={this.onChangezipcode}
+                id="feZipCode"
+                placeholder="Zip code"
+                value={this.state.zip}
+                onChange={this.onChangeZip}
               />
             </Col>
           </Row>

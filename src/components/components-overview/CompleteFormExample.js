@@ -63,8 +63,8 @@ const CompleteFormExample = () => (
                 </FormSelect>
               </Col>
               <Col md="2" className="form-group">
-                <label htmlFor="feInputzipcode">zipcode</label>
-                <FormInput id="feInputzipcode" />
+                <label htmlFor="feInputZip">Zip</label>
+                <FormInput id="feInputZip" />
               </Col>
               <Col md="12" className="form-group">
                 <FormCheckbox>
