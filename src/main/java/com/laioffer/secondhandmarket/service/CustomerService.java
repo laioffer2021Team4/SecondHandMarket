@@ -3,6 +3,7 @@ package com.laioffer.secondhandmarket.service;
 import com.laioffer.secondhandmarket.entity.Address;
 import com.laioffer.secondhandmarket.entity.AddressType;
 import com.laioffer.secondhandmarket.entity.Customer;
+import com.laioffer.secondhandmarket.entity.Type;
 import com.laioffer.secondhandmarket.entity.User;
 import com.laioffer.secondhandmarket.payload.request.SignupRequest;
 import com.laioffer.secondhandmarket.repository.CustomerRepository;
@@ -33,25 +34,18 @@ public class CustomerService {
 
         try {
 
-            Address address = Address.builder()
-                    .street(signupRequest.getStreet())
-                    .city(signupRequest.getCity())
-                    .states(signupRequest.getState())
-                    .zipcode(signupRequest.getZipcode())
-                    //.country(signupRequest.getCountry())
-                    .type(AddressType.Billing)
-                    .build();
-            Set<Address> addressSet = new HashSet<>();
-            addressSet.add(address);
-            Customer customer = Customer.builder()
-                    //.customerPhone(signupRequest.getPhone())
-                    .address(addressSet)
+            customerRepository.save(Customer.builder()
+                    .address(Address.builder()
+                            .street(signupRequest.getStreet())
+                            .city(signupRequest.getCity())
+                            .states(signupRequest.getState())
+                            .zipcode(signupRequest.getZipcode())
+                            .type(Type.builder().addressType(AddressType.Billing).build())
+                            .build())
                     .firstName(signupRequest.getFirstname())
                     .lastName(signupRequest.getLastname())
                     .user(user)
-                    .build();
-
-            customerRepository.save(customer);
+                    .build());
 
         } catch (DataAccessException e) {
 

@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,15 +35,14 @@ public class Address implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    private AddressType type;
+    @ManyToOne
+    @JoinColumn(name = "type_id")
+    private Type type;
     private String street;
     private String city;
     private String states;
     private String zipcode;
 
-    @ManyToOne
-    @JsonIgnore
-    private Customer customer;
 
     @OneToOne(mappedBy = "address")
     private Product product;

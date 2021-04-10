@@ -6,6 +6,7 @@ import com.laioffer.secondhandmarket.entity.Customer;
 import com.laioffer.secondhandmarket.entity.Product;
 import com.laioffer.secondhandmarket.entity.ProductImage;
 import com.laioffer.secondhandmarket.entity.SaleList;
+import com.laioffer.secondhandmarket.entity.Type;
 import com.laioffer.secondhandmarket.payload.request.AddProductRequest;
 import com.laioffer.secondhandmarket.repository.CustomerRepository;
 import com.laioffer.secondhandmarket.repository.ProductRepository;
@@ -76,7 +77,7 @@ public class ProductService {
 
         saleList.getProductList().add( Product.builder()
                 .address(Address.builder()
-                        .type(AddressType.Selling)
+                        .type(Type.builder().addressType(AddressType.Selling).build())
                         .zipcode(addProductRequest.getZipcode())
                         .street(addProductRequest.getStreet())
                         .city(addProductRequest.getCity())
