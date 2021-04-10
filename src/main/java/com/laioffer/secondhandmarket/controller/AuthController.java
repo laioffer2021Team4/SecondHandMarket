@@ -56,10 +56,12 @@ public class AuthController {
                     .badRequest()
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
-
-        authService.registerUser(signUpRequest);
-
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        try {
+            authService.registerUser(signUpRequest);
+            return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        } catch (RuntimeException e){
+            return  ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 

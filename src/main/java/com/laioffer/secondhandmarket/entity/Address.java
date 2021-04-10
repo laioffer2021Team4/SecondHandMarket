@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 
@@ -37,10 +38,11 @@ public class Address implements Serializable {
     private String city;
     private String states;
     private String zipcode;
-//    private String country;
 
     @ManyToOne
     @JsonIgnore
     private Customer customer;
 
+    @OneToOne(mappedBy = "address")
+    private Product product;
 }

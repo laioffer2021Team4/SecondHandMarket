@@ -26,7 +26,7 @@ public class Avatar implements Serializable {
 
     private String url;
 
-    @OneToOne(mappedBy = "avatar")
+    @OneToOne
     @JsonIgnore
     private Customer customer;
 

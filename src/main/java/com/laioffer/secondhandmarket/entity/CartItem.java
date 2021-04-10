@@ -2,6 +2,10 @@ package com.laioffer.secondhandmarket.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "cart_item")
 public class CartItem implements Serializable {
@@ -30,35 +36,4 @@ public class CartItem implements Serializable {
     @JsonIgnore
     private Cart cart;
 
-    public int getId() {
-        return id;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
 }

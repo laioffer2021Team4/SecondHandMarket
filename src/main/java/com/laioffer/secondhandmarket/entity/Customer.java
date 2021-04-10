@@ -47,15 +47,15 @@ public class Customer implements Serializable {
     @JoinColumn(name="customer_id")
     private Set<Address> address;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(unique = true)
     private Cart cart;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(unique = true)
     private SaleList saleList;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(unique = true)
     private Avatar avatar;
 }

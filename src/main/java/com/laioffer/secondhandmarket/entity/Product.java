@@ -7,9 +7,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
@@ -18,8 +20,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
 
 @Builder(toBuilder = true)
 @NoArgsConstructor
@@ -28,7 +34,9 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "product")
-public class Product {
+public class Product implements Serializable {
+
+    private static final long serialVersionUID = 5859643279933388869L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,27 +48,35 @@ public class Product {
 
     private String manufacturer;
 
-    private String name;
+    private String title;
+
+    @Column(name = "product_condition")
+    private String condition;
 
     private double price;
 
-    @ManyToOne
+
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Address address;
 
     @Column(name = "view_number")
     private double viewNumber;
 
+    @Basic
+    @Temporal(TemporalType.DATE)
     @Column(name = "post_date")
-    private String postDate;
+    private Date postDate;
 
     @Column(name = "is_sold")
     private boolean isSold;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name="product_id")
+    private Set<ProductImage> image;
+
     @ManyToOne
     @JsonIgnore
-    private SaleList saleList;
-
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<ProductImage> image;
+    private Customer customer;
 
 }

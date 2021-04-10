@@ -8,14 +8,14 @@ import java.util.List;
 @Setter
 @Getter
 public class JsonWebTokenResponse {
-    private String token;
+    private String accessToken;
     private String type = "Bearer";
     private Long id;
     private String email;
     private final List<String> roles;
 
     public JsonWebTokenResponse(String accessToken, Long id, String email, List<String> roles) {
-        this.token = accessToken;
+        this.accessToken = accessToken;
         this.id = id;
         this.email = email;
         this.roles = roles;
