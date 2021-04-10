@@ -29,7 +29,7 @@ class Register extends Component {
       address: "",
       city: "",
       state: "",
-      zip: ""
+      zipcode: ""
     };
   }
 
@@ -70,15 +70,15 @@ class Register extends Component {
   }
   onChangeZip(e) {
     this.setState({
-      zip: e.target.value
+      zipcode: e.target.value
     });
   }
 
 
   handleRegister = e=>{
     e.preventDefault();
-    const {email,password, firstname, lastname, street, city, state, zip} = this.state;
-    AuthService.register(email, password, firstname, lastname, street, city, state, zip).then(
+    const {email,password, firstname, lastname, street, city, state, zipcode} = this.state;
+    AuthService.register(email, password, firstname, lastname, street, city, state, zipcode).then(
       () => {
        return AuthService.login(email, password)
       })
@@ -182,7 +182,7 @@ class Register extends Component {
               <FormInput
                 id="feZipCode"
                 placeholder="Zip code"
-                value={this.state.zip}
+                value={this.state.zipcode}
                 onChange={this.onChangeZip}
               />
             </Col>

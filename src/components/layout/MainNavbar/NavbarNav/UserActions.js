@@ -28,7 +28,7 @@ export default class UserActions extends React.Component {
   }
   handleLogout = e=>{
     e.preventDefault();
-    AuthService.logout();
+    AuthService.logout(AuthService.getCurrentUser().email);
     window.location.href="/";
   }
 

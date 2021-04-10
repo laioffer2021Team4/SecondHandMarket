@@ -18,11 +18,14 @@ class AuthService {
       });
   }
 
-  logout() {
+  logout(email) {
     localStorage.removeItem("user");
+    return axios.post(API_URL + "logout", {
+      email
+    })
   }
 
-  register(email, password, firstname, lastname, street, city, state, zip) {
+  register(email, password, firstname, lastname, street, city, state, zipcode) {
     return axios.post(API_URL + "register", {
       email,
       password,
@@ -31,7 +34,7 @@ class AuthService {
       street,
       city,
       state,
-      zip
+      zipcode
     });
   }
 
