@@ -17,6 +17,7 @@ class PostNewProduct extends Component {
     super(props);
     this.selectFile = this.selectFile.bind(this);
     this.upload = this.upload.bind(this);
+    this.cancel = this.cancel.bind(this);
     this.onChangeStreet = this.onChangeStreet.bind(this);
     this.onChangeCity = this.onChangeCity.bind(this);
     this.onChangeState = this.onChangeState.bind(this);
@@ -101,9 +102,11 @@ class PostNewProduct extends Component {
 
   cancel = e=> {
     e.preventDefault();
-    //ToDo: delete uploaded images from backend
-    this.props.history.push("/myposts");
-    window.location.reload();
+    UploadService.delete(this.state.uuids).then(
+      () => {
+        this.props.history.push("/myposts");
+        window.location.reload();
+      })
   }
 
   addProduct = e=>{

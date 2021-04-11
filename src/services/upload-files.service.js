@@ -23,6 +23,16 @@ class UploadFilesService {
       headers: authHeader()
     });
   }
+
+  delete(uuids) {
+      return http.post(API_URL + "delete", {
+          uuids
+        }, {
+          headers: authHeader()
+        }
+      )
+
+  }
 }
 
 export default new UploadFilesService();
