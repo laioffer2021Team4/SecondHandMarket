@@ -53,6 +53,7 @@ public class User implements Serializable {
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_email"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @Builder.Default
     private Set<Role> roles = new HashSet<>();
 
     @OneToOne(mappedBy="user")

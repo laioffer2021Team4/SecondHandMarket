@@ -26,7 +26,7 @@ public class CustomerController {
     @GetMapping("/profile")
     public ResponseEntity<?> getProfile(@Valid @RequestBody ProfileRequest profileRequest) {
         try {
-            Customer customer = customerService.getCustomer(profileRequest.getEmail());
+            Customer customer = customerService.getCustomerByEmail(profileRequest.getEmail());
             return ResponseEntity.ok(customer);
         } catch (RuntimeException e){
             return  ResponseEntity.badRequest().body(e.getMessage());
