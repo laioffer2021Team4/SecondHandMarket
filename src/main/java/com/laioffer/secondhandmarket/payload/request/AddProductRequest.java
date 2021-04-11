@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Setter
@@ -30,8 +31,7 @@ public class AddProductRequest {
     @NotBlank
     private String condition;
 
-    @NotBlank
+    @NotNull
     private List<String> uuids;
-
 
 }

@@ -28,8 +28,8 @@ public class CustomerController {
         try {
             Customer customer = customerService.getCustomerByEmail(profileRequest.getEmail());
             return ResponseEntity.ok(customer);
-        } catch (RuntimeException e){
-            return  ResponseEntity.badRequest().body(e.getMessage());
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 }

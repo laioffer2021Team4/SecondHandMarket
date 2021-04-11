@@ -18,7 +18,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Objects;
-import java.util.UUID;
 
 import static java.util.UUID.randomUUID;
 
@@ -62,9 +61,8 @@ public class AmazonS3Client {
         return s3client.getObject(bucketName, fileName);
     }
 
-    public String deleteFileFromS3Bucket(String fileUrl) {
-        s3client.deleteObject(bucketName, getFileNameFromFileURL(fileUrl));
-        return "Successfully deleted";
+    public void deleteFileFromS3Bucket(String fileUuid) {
+        s3client.deleteObject(bucketName, fileUuid);
     }
 
     private void uploadFileTos3bucket(String fileName, File file) {

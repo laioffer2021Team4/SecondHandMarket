@@ -13,6 +13,8 @@ import com.laioffer.secondhandmarket.repository.ProductRepository;
 import com.laioffer.secondhandmarket.repository.SaleListRepository;
 import com.laioffer.secondhandmarket.repository.TypeRepository;
 import com.laioffer.secondhandmarket.repository.UserRepository;
+import com.laioffer.secondhandmarket.storage.S3StorageService;
+import com.laioffer.secondhandmarket.storage.StorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +39,6 @@ public class ProductService {
     CustomerRepository customerRepository;
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     CustomerService customerService;
 
     @Autowired
@@ -48,6 +47,8 @@ public class ProductService {
     @Autowired
     TypeRepository typeRepository;
 
+    @Autowired
+    StorageService storageService;
 
     public List<Product> getAllProducts() {
         return productRepository.findAll();
@@ -102,6 +103,8 @@ public class ProductService {
                     .image(images).build());
 
             saleListRepository.save(saleList);
+            storageService.deleteFiles();
+
         } catch (RuntimeException e) {
             logger.error("Failed to add new product " + e);
             throw new BusinessLogicException("Failed to add new product", e);
@@ -128,7 +131,7 @@ public class ProductService {
     }
 
     private void updateFinalList(List<Product> rawList, List<Product> finalList, Set<Integer> idSet) {
-        if (rawList==null || rawList.size()==0) {
+        if (rawList == null || rawList.size() == 0) {
             return;
         }
         for (Product product : rawList) {

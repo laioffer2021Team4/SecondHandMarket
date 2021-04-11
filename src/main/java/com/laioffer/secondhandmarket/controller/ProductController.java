@@ -1,11 +1,11 @@
 package com.laioffer.secondhandmarket.controller;
 
-import com.laioffer.secondhandmarket.entity.Customer;
 import com.laioffer.secondhandmarket.payload.request.AddProductRequest;
 import com.laioffer.secondhandmarket.payload.response.MessageResponse;
 import com.laioffer.secondhandmarket.service.CustomerService;
 import com.laioffer.secondhandmarket.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,8 +31,8 @@ public class ProductController {
         try {
             productService.addProduct(addProductRequest);
             return ResponseEntity.ok(new MessageResponse("Product Added successfully!"));
-        } catch (RuntimeException e){
-            return  ResponseEntity.badRequest().body(e.getMessage());
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(e.getMessage());
         }
     }
 

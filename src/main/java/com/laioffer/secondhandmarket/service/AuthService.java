@@ -6,7 +6,6 @@ import com.laioffer.secondhandmarket.entity.UserRole;
 import com.laioffer.secondhandmarket.payload.request.SignupRequest;
 import com.laioffer.secondhandmarket.payload.response.JsonWebTokenResponse;
 import com.laioffer.secondhandmarket.repository.RoleRepository;
-import com.laioffer.secondhandmarket.repository.UserRepository;
 import com.laioffer.secondhandmarket.security.jsonwebtoken.JasonWebTokenUtils;
 import com.laioffer.secondhandmarket.security.services.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +37,6 @@ public class AuthService {
     JasonWebTokenUtils jwtUtils;
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     RoleRepository roleRepository;
 
     @Autowired
@@ -66,10 +62,10 @@ public class AuthService {
     public void registerUser(SignupRequest signupRequest) {
 
         // Create new user's account
-       User user = User.builder()
-               .email(signupRequest.getEmail())
-               .password(encoder.encode(signupRequest.getPassword()))
-               .build();
+        User user = User.builder()
+                .email(signupRequest.getEmail())
+                .password(encoder.encode(signupRequest.getPassword()))
+                .build();
 
         Set<String> strRoles = signupRequest.getRole();
         Set<Role> roles = new HashSet<>();

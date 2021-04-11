@@ -1,7 +1,9 @@
 package com.laioffer.secondhandmarket.storage;
 
 
+import com.amazonaws.AmazonClientException;
 import com.laioffer.secondhandmarket.clients.AmazonS3Client;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -19,6 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -98,13 +101,31 @@ public class S3StorageService implements StorageService {
 
     @Override
     public byte[] getByteArrayFromFile(String fileName) throws IOException {
-            InputStream in = amazonS3Client.getFileFromS3Bucket(fileName).getObjectContent();
-            BufferedImage imageFromAWS = ImageIO.read(in);
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            ImageIO.write(imageFromAWS, "png", byteArrayOutputStream);
-            byte[] imageBytes = byteArrayOutputStream.toByteArray();
-            in.close();
-            return imageBytes;
+        InputStream in = amazonS3Client.getFileFromS3Bucket(fileName).getObjectContent();
+        BufferedImage imageFromAWS = ImageIO.read(in);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ImageIO.write(imageFromAWS, "png", byteArrayOutputStream);
+        byte[] imageBytes = byteArrayOutputStream.toByteArray();
+        in.close();
+        return imageBytes;
+    }
+
+    @Override
+    public void deleteFromS3(List<String> uuids) {
+        try {
+            uuids.forEach(amazonS3Client::deleteFileFromS3Bucket);
+        } catch (AmazonClientException e) {
+            throw new StorageException("Could not delete files from S3", e);
+        }
+    }
+
+    @Override
+    public void deleteFiles() {
+        try {
+            FileUtils.cleanDirectory(rootLocation.toFile());
+        } catch (IOException e) {
+            throw new StorageException("Could not delete all files from root location", e);
+        }
     }
 
     @Override

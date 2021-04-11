@@ -5,6 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.stream.Stream;
 
 public interface StorageService {
@@ -23,4 +24,7 @@ public interface StorageService {
 
     byte[] getByteArrayFromFile(String url) throws IOException;
 
+    void deleteFromS3(List<String> uuids);
+
+    void deleteFiles();
 }

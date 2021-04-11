@@ -56,7 +56,7 @@ public class User implements Serializable {
     @Builder.Default
     private Set<Role> roles = new HashSet<>();
 
-    @OneToOne(mappedBy="user")
+    @OneToOne(mappedBy = "user")
     private Customer customer;
 
 }

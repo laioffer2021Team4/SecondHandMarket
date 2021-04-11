@@ -25,6 +25,7 @@ import javax.persistence.TemporalType;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Builder(toBuilder = true)
@@ -55,8 +56,6 @@ public class Product implements Serializable {
 
     private double price;
 
-
-
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Address address;
 
@@ -72,8 +71,9 @@ public class Product implements Serializable {
     private boolean isSold;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name="product_id")
-    private Set<ProductImage> image;
+    @JoinColumn(name = "product_id")
+    @Builder.Default
+    private Set<ProductImage> image = new HashSet<>();
 
     @ManyToOne
     @JsonIgnore
