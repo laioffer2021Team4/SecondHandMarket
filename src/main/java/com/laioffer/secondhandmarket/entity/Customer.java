@@ -1,5 +1,6 @@
 package com.laioffer.secondhandmarket.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,6 +40,7 @@ public class Customer implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
+    @JsonIgnore
     private User user;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -47,13 +49,16 @@ public class Customer implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(unique = true)
+    @JsonIgnore
     private Cart cart;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(unique = true)
+    @JsonIgnore
     private SaleList saleList;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(unique = true)
+    @JsonIgnore
     private Avatar avatar;
 }

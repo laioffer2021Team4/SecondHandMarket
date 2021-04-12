@@ -56,7 +56,7 @@ public class AuthService {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
-        return new JsonWebTokenResponse(jwt, userDetails.getId(), userDetails.getEmail(), roles);
+        return new JsonWebTokenResponse(jwt, userDetails.getId(), userDetails.getEmail(), roles, customerService.getCustomerByEmail(username));
     }
 
     public void registerUser(SignupRequest signupRequest) {
