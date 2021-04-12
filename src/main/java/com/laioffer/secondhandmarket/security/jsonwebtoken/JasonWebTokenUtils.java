@@ -32,7 +32,7 @@ public class JasonWebTokenUtils {
 
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
-        RedisUtil.INSTANCE.addToCache(REDIS_SET_ACTIVE_SUBJECTS, userEmail);
+        RedisUtil.INSTANCE.addToSetCache(REDIS_SET_ACTIVE_SUBJECTS, userEmail);
 
         return Jwts.builder()
                 .setSubject((userPrincipal.getEmail()))
@@ -49,7 +49,7 @@ public class JasonWebTokenUtils {
     public boolean validateJwtToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
-            return RedisUtil.INSTANCE.isInCache(REDIS_SET_ACTIVE_SUBJECTS, getUserEmailFromJwtToken(authToken));
+            return RedisUtil.INSTANCE.isInSetCache(REDIS_SET_ACTIVE_SUBJECTS, getUserEmailFromJwtToken(authToken));
 
         } catch (SignatureException e) {
             logger.error("Invalid JWT signature: {}", e.getMessage());
@@ -67,6 +67,6 @@ public class JasonWebTokenUtils {
     }
 
     public static void invalidateRelatedTokens(LogoutRequest logoutRequest) {
-        RedisUtil.INSTANCE.removeFromCache(REDIS_SET_ACTIVE_SUBJECTS, logoutRequest.getUsername());
+        RedisUtil.INSTANCE.removeFromSetCache(REDIS_SET_ACTIVE_SUBJECTS, logoutRequest.getUsername());
     }
 }

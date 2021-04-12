@@ -1,5 +1,6 @@
 package com.laioffer.secondhandmarket.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,6 +35,7 @@ public class Address implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "type_id")
+    @JsonIgnore
     private Type type;
     private String street;
     private String city;
@@ -42,5 +44,6 @@ public class Address implements Serializable {
 
 
     @OneToOne(mappedBy = "address")
+    @JsonIgnore
     private Product product;
 }

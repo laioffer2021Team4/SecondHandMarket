@@ -4,6 +4,8 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
+import java.nio.charset.StandardCharsets;
+
 public enum RedisUtil {
     INSTANCE;
 
@@ -13,7 +15,7 @@ public enum RedisUtil {
         pool = new JedisPool(new JedisPoolConfig(), "localhost");
     }
 
-    public void addToCache(String key, String value) {
+    public void addToSetCache(String key, String value) {
         Jedis jedis = null;
         try{
             jedis = pool.getResource();
@@ -25,7 +27,7 @@ public enum RedisUtil {
         }
     }
 
-    public void removeFromCache(String key, String value) {
+    public void removeFromSetCache(String key, String value) {
         Jedis jedis = null;
         try{
             jedis = pool.getResource();
@@ -37,7 +39,7 @@ public enum RedisUtil {
         }
     }
 
-    public boolean isInCache(String key, String value) {
+    public boolean isInSetCache(String key, String value) {
         Jedis jedis = null;
         try{
             jedis = pool.getResource();
@@ -48,4 +50,41 @@ public enum RedisUtil {
             }
         }
     }
+
+    public boolean hasKey(String key) {
+        Jedis jedis = null;
+        try {
+            jedis = pool.getResource();
+            return jedis.exists(key);
+        } finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
+    }
+
+    public byte[] getValue(String key) {
+        Jedis jedis = null;
+        try {
+            jedis = pool.getResource();
+            return jedis.get(key.getBytes(StandardCharsets.UTF_8));
+        } finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
+    }
+
+    public void putValue(String key, byte[] value) {
+        Jedis jedis = null;
+        try {
+            jedis = pool.getResource();
+            jedis.set(key.getBytes(StandardCharsets.UTF_8), value);
+        } finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
+    }
+
 }

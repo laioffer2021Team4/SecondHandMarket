@@ -2,6 +2,7 @@ package com.laioffer.secondhandmarket.storage;
 
 
 import com.amazonaws.AmazonClientException;
+import com.laioffer.secondhandmarket.cache.RedisUtil;
 import com.laioffer.secondhandmarket.clients.AmazonS3Client;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,12 +102,16 @@ public class S3StorageService implements StorageService {
 
     @Override
     public byte[] getByteArrayFromFile(String fileName) throws IOException {
+        if (RedisUtil.INSTANCE.hasKey(fileName)) {
+            return RedisUtil.INSTANCE.getValue(fileName);
+        }
         InputStream in = amazonS3Client.getFileFromS3Bucket(fileName).getObjectContent();
         BufferedImage imageFromAWS = ImageIO.read(in);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ImageIO.write(imageFromAWS, "png", byteArrayOutputStream);
         byte[] imageBytes = byteArrayOutputStream.toByteArray();
         in.close();
+        RedisUtil.INSTANCE.putValue(fileName, imageBytes);
         return imageBytes;
     }
 
