@@ -31,17 +31,16 @@ class ProductPosts extends React.Component {
   listAllMyProducts() {
     ProductService.getAllMyProducts()
       .then(response => {
-
-        this.state.PostsListOne = [];
-        response.data.map((post, idx) => (
-          this.state.PostsListOne.push(
-            {
-              title: post.title,
-              uuid: post.uuid
-            }
-          )
-        ))
-        //ToDo make Byte[] work
+        let productList = response.data.map((post, idx) => {
+          return {
+            title: post.title,
+            uuid: post.uuid
+          }
+        });
+        this.setState({
+          PostsListOne: productList
+        });
+        // ToDo make Byte[] work
         // this.state.PostsListOne.map((post, idx) => (
         //   UploadService.getImage(post.uuid)
         //     .then(response => {
