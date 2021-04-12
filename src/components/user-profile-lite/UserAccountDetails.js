@@ -9,9 +9,7 @@ import {
   Col,
   Form,
   FormGroup,
-  FormInput,
-  FormSelect,
-  Button
+  FormInput
 } from "shards-react";
 
 const UserAccountDetails = ({ title }) => (
@@ -109,7 +107,6 @@ const UserAccountDetails = ({ title }) => (
                   />
                 </Col>
               </Row>
-              <Button theme="accent">Update Account</Button>
             </Form>
           </Col>
         </Row>
