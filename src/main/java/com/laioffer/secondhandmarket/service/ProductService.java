@@ -8,12 +8,11 @@ import com.laioffer.secondhandmarket.entity.ProductImage;
 import com.laioffer.secondhandmarket.entity.SaleList;
 import com.laioffer.secondhandmarket.exceptions.BusinessLogicException;
 import com.laioffer.secondhandmarket.payload.request.AddProductRequest;
+import com.laioffer.secondhandmarket.payload.response.ProductResponse;
 import com.laioffer.secondhandmarket.repository.CustomerRepository;
 import com.laioffer.secondhandmarket.repository.ProductRepository;
 import com.laioffer.secondhandmarket.repository.SaleListRepository;
 import com.laioffer.secondhandmarket.repository.TypeRepository;
-import com.laioffer.secondhandmarket.repository.UserRepository;
-import com.laioffer.secondhandmarket.storage.S3StorageService;
 import com.laioffer.secondhandmarket.storage.StorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +21,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -31,7 +31,7 @@ import java.util.Set;
 @Component
 public class ProductService {
     private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
-    // private final ProductDao productDao;
+
     @Autowired
     private ProductRepository productRepository;
 
@@ -140,5 +140,24 @@ public class ProductService {
                 finalList.add(product);
             }
         }
+    }
+
+    public List<ProductResponse> listAllProductsByEmail(String email) {
+        SaleList saleList = customerService.getCustomerByEmail(email).getSaleList();
+        if (saleList != null && saleList.getProductList() != null) {
+            List<ProductResponse> listOfProducts = new ArrayList<>();
+            for  (Product product : saleList.getProductList()) {
+                String uuid = "";
+                Set<ProductImage> images = product.getImage();
+                if (images.size() > 0) {
+                    uuid = images.iterator().next().getUuid();
+                }
+                listOfProducts.add(ProductResponse.builder()
+                        .title(product.getTitle())
+                        .uuid(uuid).build());
+            }
+            return listOfProducts;
+        }
+        return new ArrayList<>();
     }
 }
