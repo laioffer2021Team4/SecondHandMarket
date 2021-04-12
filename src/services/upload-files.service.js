@@ -31,7 +31,12 @@ class UploadFilesService {
           headers: authHeader()
         }
       )
+  }
 
+  getImage(uuid) {
+    return http.get(API_URL + "images/" + uuid, {
+      headers: authHeader()
+    })
   }
 }
 

@@ -3,6 +3,8 @@
 import React from "react";
 import AddIcon from '@material-ui/icons/Add';
 import withAuth from "../components/auth/withAuth.js"
+import ProductService from "../services/product.service";
+import UploadService from "../services/upload-files.service";
 
 import {
   Container,
@@ -12,31 +14,48 @@ import {
   CardBody
 } from "shards-react";
 
-
 class ProductPosts extends React.Component {
   constructor(props) {
-    super(props);
-
+    super(props)
+    this.listAllMyProducts = this.listAllMyProducts.bind(this);
     this.state = {
       // First list of posts.
-      PostsListOne: [
-        {
-          backgroundImage: require("../images/content-management/1.jpeg"),
-          name: "Item name1"
-        },
-        {
-          backgroundImage: require("../images/content-management/2.jpeg"),
-          name: "Item name2"
-        }
-      ]
+      PostsListOne: []
     };
   }
 
+  componentDidMount() {
+    this.listAllMyProducts();
+  }
 
+  listAllMyProducts() {
+    ProductService.getAllMyProducts()
+      .then(response => {
+
+        this.state.PostsListOne = [];
+        response.data.map((post, idx) => (
+          this.state.PostsListOne.push(
+            {
+              title: post.title,
+              uuid: post.uuid
+            }
+          )
+        ))
+        //ToDo make Byte[] work
+        // this.state.PostsListOne.map((post, idx) => (
+        //   UploadService.getImage(post.uuid)
+        //     .then(response => {
+        //       post.backgroudImage = "data:image/png;base64," +  response.data
+        //     })
+        // ))
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
 
   render() {
     const {  PostsListOne   } = this.state;
-
     return (
       <Container fluid className="main-content-container px-4">
         <div style={{margin:"10px 0 0 20px"}}>
@@ -52,12 +71,12 @@ class ProductPosts extends React.Component {
                 <Card className="card-post card-post--1">
                   <div
                     className="card-post__image"
-                    style={{ backgroundImage: `url(${post.backgroundImage})` }}
+                    style={{ backgroundImage: "url(http://localhost:8080/api/images/" + post.uuid +")" }}
                   />
                   <CardBody>
                     <h5 className="card-title">
                       <a href="#" className="text-fiord-blue">
-                        {post.name}
+                        {post.title}
                       </a>
                     </h5>
                   </CardBody>
