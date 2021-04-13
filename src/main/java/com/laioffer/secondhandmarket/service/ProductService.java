@@ -30,7 +30,7 @@ import java.util.Set;
 @Service
 @Component
 public class ProductService {
-    private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
+
 
     @Autowired
     private ProductRepository productRepository;
@@ -106,8 +106,7 @@ public class ProductService {
             storageService.deleteFiles();
 
         } catch (RuntimeException e) {
-            logger.error("Failed to add new product " + e);
-            throw new BusinessLogicException("Failed to add new product", e);
+
         }
     }
 

@@ -19,8 +19,6 @@ import org.springframework.stereotype.Service;
 @Component
 public class CustomerService {
 
-    private static final Logger logger = LoggerFactory.getLogger(CustomerService.class);
-
     @Autowired
     CustomerRepository customerRepository;
 
@@ -32,7 +30,6 @@ public class CustomerService {
 
     public void createCustomer(SignupRequest signupRequest, User user) {
 
-        try {
             customerRepository.save(Customer.builder()
                     .address(Address.builder()
                             .street(signupRequest.getStreet())
@@ -47,10 +44,6 @@ public class CustomerService {
                     .user(user)
                     .build());
 
-        } catch (RuntimeException e) {
-            logger.error("Failed to create new customer " + e);
-            throw new BusinessLogicException("Failed to create new customer ", e);
-        }
     }
 
     public Customer getCustomerByEmail(String email) {

@@ -5,6 +5,8 @@ import com.laioffer.secondhandmarket.payload.response.MessageResponse;
 import com.laioffer.secondhandmarket.payload.response.ProductResponse;
 import com.laioffer.secondhandmarket.service.CustomerService;
 import com.laioffer.secondhandmarket.service.ProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,8 @@ import java.util.List;
 @RequestMapping("/api/product")
 public class ProductController {
 
+    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
+
     @Autowired
     ProductService productService;
 
@@ -36,6 +40,7 @@ public class ProductController {
             productService.addProduct(addProductRequest);
             return ResponseEntity.ok(new MessageResponse("Product Added successfully!"));
         } catch (RuntimeException e) {
+            logger.error("Failed to add new product " + e);
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(e.getMessage());
         }
     }
@@ -49,7 +54,8 @@ public class ProductController {
                 }
                 return new ResponseEntity<>(products, HttpStatus.OK);
             } catch (RuntimeException e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+                logger.error("Failed to list products :" + e);
+                return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
