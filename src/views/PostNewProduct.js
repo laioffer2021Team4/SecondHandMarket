@@ -11,6 +11,7 @@ import {
 
 import UploadService from "../services/upload-files.service";
 import ProductService from "../services/product.service";
+import withAuth from "../components/auth/withAuth.js"
 
 class PostNewProduct extends Component {
   constructor(props) {
@@ -363,4 +364,4 @@ class PostNewProduct extends Component {
   }
 }
 
-export default PostNewProduct;
+export default  withAuth(PostNewProduct);
