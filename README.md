@@ -1,60 +1,33 @@
-如何部署后端
+How to deploy the backend
 
-1.Git clone backend_master branch 到你的本地
+1.Git clone backend_master branch to your local
 
 $git checkout --track origin/backend_master
 
+2. Open your AWS account and set up an IAM with S3 permissions
 
-2.打开你的AWS 账户 设置一个拥有S3 权限的 IAM
+Tutorial: https://medium.com/@postullat2/java-spring-boot-and-aws-s3-bucket-integration-cff480d94e3f
 
-教程：
-https://medium.com/@postullat2/java-spring-boot-and-aws-s3-bucket-integration-cff480d94e3f
+After setting up S3, write info into the application.properties file s3.endpointUrl= s3.accessKeyId= s3.secretKey= s3.bucketName= s3.region=us-west-2
 
-设置好S3 后 把info 写入 application.properties 文件
-s3.endpointUrl=<your S3 endpointUrl>
-s3.accessKeyId=<your aws accessKey>
-s3.secretKey=<your aws secretKey>
-s3.bucketName=<your bucket name>
-s3.region=us-west-2
+Set up your AWS RDS in the file named ApplicationConfig the same as the one used in the onlineshop class
 
+dataSource.setUrl(""); dataSource.setUsername(""); dataSource.setPassword("");
 
-
-3. 在名为ApplicationConfig的文件里设置你的AWS RDS 和onlineshop 课上用的一样
-
-   dataSource.setUrl("<your RDS url>");
-   dataSource.setUsername("<your username>");
-   dataSource.setPassword("<your password>");
-
-
-
-注意就是设置URL的时候 Schema 名称改成 别的，不要再用 ecommerce，ecommerce是Onlineshop课上用的数据库
-例如 下面把ecommerce 改成了 secondhandmarket
+Note that when setting the URL, change the Schema name to something else. Don’t use ecommerce anymore. ecommerce is the database used in the Onlineshop class. For example, let’s change ecommerce to secondhandmarket.
 
 jdbc:mysql://laiproject-instance.c2cnafv9el5c.us-west-2.rds.amazonaws.com:3306/secondhandmarket?createDatabaseIfNotExist=true&serverTimezone=UTC
 
-4.加载pom dependencies
+4. Load pom dependencies
 
-5.在intellij里选run → edit configuration 选择 spring boot。
-main class 栏里输入com.laioffer.secondhandmarket.Application
-Short Command Line 里 选择 Jar Manifest
+5. In Intellij, select run → edit configuration and select spring boot. Enter com.laioffer.secondhandmarket.Application Short Command Line in the main class field and select Jar Manifest
 
- 6. 运行之前，部署Redis
-Mac ： https://phoenixnap.com/kb/install-redis-on-mac
-Windows：下载 后解压运行redis-server Redis-x64-3.0.504.zip
+Before running, deploy Redis Mac: https://phoenixnap.com/kb/install-redis-on-mac Windows: After downloading, unzip and run redis-server Redis-x64-3.0.504.zip
+Run Redis in a terminal as shown below. Don't turn off when running the backend, you need to open the Redis cache at the same time every time you deploy the backend.
 
+Click to run Spring Boot, the Intellij Console displays the following to indicate successful deployment
 
-把Redis 运行在一个terminal如下图。运行后端时不要关掉，每次部署后端都需要同时打开Redis 缓存。
+After successfully creating the SQL database, run the following SQL commands in the SQL console to add enum to the database
 
-
-点击运行 Spring Boot， Intellij Console 显示如下代表部署成功
-
-
-
-
-创建SQL 数据库 成功后， 在SQL console 运行下面这些SQL 命令 添加enum 到 数据库
-
-INSERT INTO roles(name) VALUES('ROLE_USER'); 
-INSERT INTO roles(name) VALUES('ROLE_ADMIN'); 
-INSERT INTO address_type(address_type) VALUES('Selling'); 
-INSERT INTO address_type(address_type) VALUES('Billing');
+INSERT INTO roles(name) VALUES('ROLE_USER'); INSERT INTO roles(name) VALUES('ROLE_ADMIN'); INSERT INTO address_type(address_type) VALUES('Selling'); INSERT INTO address_type(address_type) VALUES('Billing' );
 
