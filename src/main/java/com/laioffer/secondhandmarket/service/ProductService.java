@@ -16,6 +16,8 @@ import com.laioffer.secondhandmarket.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -131,6 +133,7 @@ public class ProductService {
         }
     }
 
+    @Transactional
     public List<ProductResponse> listAllProductsByEmail(String email) {
         SaleList saleList = customerService.getCustomerByEmail(email).getSaleList();
         if (saleList != null && saleList.getProductList() != null) {
