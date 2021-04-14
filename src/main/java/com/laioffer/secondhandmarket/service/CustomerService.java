@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 @Component
 public class CustomerService {
@@ -42,7 +44,7 @@ public class CustomerService {
                     .build());
 
     }
-
+    @Transactional
     public Customer getCustomerByEmail(String email) {
 
         User user = userRepository.findByEmail(email)
@@ -50,7 +52,7 @@ public class CustomerService {
         return customerRepository.findByUser(user)
                 .orElseThrow(() -> new RuntimeException("Didn't find User Data by Email: " + email));
     }
-
+    @Transactional
     public Customer getCustomerById(int id) {
         return customerRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Customer with id: " + id + " does not exist"));

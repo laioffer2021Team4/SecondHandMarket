@@ -50,7 +50,7 @@ public class ProductService {
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
-
+    @Transactional
     public Product getProductById(int productId) {
         return productRepository.findProductById(productId)
                 .orElseThrow(() -> new RuntimeException("Product with id: " + productId + " does not exist"));
