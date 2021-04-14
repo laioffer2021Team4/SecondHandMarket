@@ -153,7 +153,8 @@ public class ProductService {
                 }
                 listOfProducts.add(ProductResponse.builder()
                         .title(product.getTitle())
-                        .uuid(uuid).build());
+                        .uuid(uuid)
+                        .productId(product.getId()).build());
             }
             return listOfProducts;
         }
