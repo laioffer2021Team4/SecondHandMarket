@@ -60,6 +60,7 @@ public class ProductService {
         productRepository.deleteProductById(productId);
     }
 
+    @Transactional
     public void addProduct(AddProductRequest addProductRequest) {
             Customer customer = customerService.getCustomerByEmail(addProductRequest.getEmail());
 
@@ -106,7 +107,7 @@ public class ProductService {
         productRepository.save(product);
     }
 
-    public List<Product> getProductByKeyword(String keyword) {
+    public List<ProductResponse> getProductByKeyword(String keyword) {
         List<Product> listC = productRepository.findByCategoryContaining(keyword);
         List<Product> listD = productRepository.findByDescriptionContaining(keyword);
         List<Product> listM = productRepository.findByManufacturerContaining(keyword);
@@ -118,7 +119,20 @@ public class ProductService {
         updateFinalList(listD, finalList, idSet);
         updateFinalList(listM, finalList, idSet);
         updateFinalList(listN, finalList, idSet);
-        return finalList;
+        // Convert the list of Product to list of ProductResponse
+        List<ProductResponse> finalResponse = new ArrayList<>();
+        for (Product product : finalList) {
+            String uuid = "";
+            Set<ProductImage> images = product.getImage();
+            if (images.size() > 0) {
+                uuid = images.iterator().next().getUuid();
+            }
+            finalResponse.add(ProductResponse.builder()
+                                            .title(product.getTitle())
+                                            .uuid(uuid)
+                                            .build());
+        }
+        return finalResponse;
     }
 
     private void updateFinalList(List<Product> rawList, List<Product> finalList, Set<Integer> idSet) {
