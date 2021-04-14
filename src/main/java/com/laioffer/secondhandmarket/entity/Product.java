@@ -76,7 +76,6 @@ public class Product implements Serializable {
     private Set<ProductImage> image = new HashSet<>();
 
     @ManyToOne
-    @JsonIgnore
     private Customer customer;
 
 }

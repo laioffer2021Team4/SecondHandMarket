@@ -64,7 +64,6 @@ public class ProductService {
     }
 
     public void addProduct(AddProductRequest addProductRequest) {
-        try {
             Customer customer = customerService.getCustomerByEmail(addProductRequest.getEmail());
 
             SaleList saleList = customer.getSaleList();
@@ -104,10 +103,6 @@ public class ProductService {
 
             saleListRepository.save(saleList);
             storageService.deleteFiles();
-
-        } catch (RuntimeException e) {
-
-        }
     }
 
     public void updateProduct(Product product) {

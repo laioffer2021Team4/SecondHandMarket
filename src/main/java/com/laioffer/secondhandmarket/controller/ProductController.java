@@ -1,5 +1,6 @@
 package com.laioffer.secondhandmarket.controller;
 
+import com.laioffer.secondhandmarket.entity.Product;
 import com.laioffer.secondhandmarket.payload.request.AddProductRequest;
 import com.laioffer.secondhandmarket.payload.response.MessageResponse;
 import com.laioffer.secondhandmarket.payload.response.ProductResponse;
@@ -56,6 +57,20 @@ public class ProductController {
             } catch (RuntimeException e) {
                 logger.error("Failed to list products :" + e);
                 return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable String id) {
+        try {
+            Product product = productService.getProductById((Integer.parseInt(id)));
+            return new ResponseEntity<>(product, HttpStatus.OK);
+        } catch (NumberFormatException ex) {
+            logger.error("Error number Id format");
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        } catch (RuntimeException e) {
+            logger.error("Failed to get product :" + e);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
