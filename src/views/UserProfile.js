@@ -3,18 +3,20 @@ import {
   Container, Row, Col, Card, CardHeader, ListGroup,
   ListGroupItem, FormInput, FormGroup, Form
 } from "shards-react";
-import avatar from "./../images/avatars/0.jpg"
+import avatar from "./../images/avatars/user.png"
 
 import PageTitle from "../components/common/PageTitle";
 
 
 export default class UserProfile extends Component {
   state = {
-    currUser: JSON.parse(localStorage.getItem('user'))
+    currUser: JSON.parse(localStorage.getItem('user')).customer,
+    email: JSON.parse(localStorage.getItem('user')).email
   }
 
+
   render() {
-    const {currUser} = this.state;
+    const {currUser, email} = this.state;
     return (
       <Container fluid className="main-content-container px-4">
         <Row noGutters className="page-header py-4">
@@ -29,11 +31,11 @@ export default class UserProfile extends Component {
                   <img
                     className="rounded-circle"
                     src={avatar}
-                    alt={currUser.name}
                     width="110"
                   />
                 </div>
-                <h4 className="mb-0">{currUser.name}</h4>
+                <h4
+                  className="mb-0">{currUser.firstName} {currUser.lastName}</h4>
               </CardHeader>
             </Card>
           </Col>
@@ -54,7 +56,7 @@ export default class UserProfile extends Component {
                             <FormInput readOnly
                                        id="fefirstname"
                                        placeholder="First Name"
-                                       value={currUser.firstname}
+                                       value={currUser.firstName}
                             />
                           </Col>
                           {/* Last Name */}
@@ -63,7 +65,7 @@ export default class UserProfile extends Component {
                             <FormInput readOnly
                                        id="felastname"
                                        placeholder="Last Name"
-                                       value={currUser.lastname}
+                                       value={currUser.lastName}
                             />
                           </Col>
                         </Row>
@@ -75,27 +77,27 @@ export default class UserProfile extends Component {
                                        type="email"
                                        id="feEmail"
                                        placeholder="Email Address"
-                                       value={currUser.email}
+                                       value={email}
                             />
                           </Col>
                           {/* Password */}
-                          <Col md="6" className="form-group">
-                            <label htmlFor="fePassword">Password</label>
-                            <FormInput readOnly
-                                       type="password"
-                                       id="fePassword"
-                                       placeholder="Password"
-                                       value={currUser.password}
-                                       autoComplete="current-password"
-                            />
-                          </Col>
+                          {/*<Col md="6" className="form-group">*/}
+                          {/*  <label htmlFor="fePassword">Password</label>*/}
+                          {/*  <FormInput readOnly*/}
+                          {/*             type="password"*/}
+                          {/*             id="fePassword"*/}
+                          {/*             placeholder="Password"*/}
+                          {/*             value={currUser.password}*/}
+                          {/*             autoComplete="current-password"*/}
+                          {/*  />*/}
+                          {/*</Col>*/}
                         </Row>
                         <FormGroup>
                           <label htmlFor="feAddress">Address</label>
                           <FormInput readOnly
                                      id="feAddress"
                                      placeholder="Address"
-                                     value={currUser.street}
+                                     value={currUser.address.street}
                           />
                         </FormGroup>
                         <Row form>
@@ -105,7 +107,7 @@ export default class UserProfile extends Component {
                             <FormInput readOnly
                                        id="feCity"
                                        placeholder="City"
-                                       value={currUser.city}
+                                       value={currUser.address.city}
                             />
                           </Col>
                           {/* State */}
@@ -113,7 +115,7 @@ export default class UserProfile extends Component {
                             <label htmlFor="feInputState">State</label>
                             <FormInput readOnly id="feInputState"
                                        placeholder="State"
-                                       value={currUser.state}>
+                                       value={currUser.address.states}>
                             </FormInput>
                           </Col>
                           {/* Zip Code */}
@@ -122,7 +124,7 @@ export default class UserProfile extends Component {
                             <FormInput readOnly
                                        id="feZipCode"
                                        placeholder="Zip"
-                                       value={currUser.zipcode}
+                                       value={currUser.address.zipcode}
                             />
                           </Col>
                         </Row>
