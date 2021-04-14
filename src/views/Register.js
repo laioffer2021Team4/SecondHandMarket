@@ -3,7 +3,7 @@ import {
   Container,
   Form,
   FormGroup,
-  FormInput, Button, Row, Col, FormSelect
+  FormInput, Button, Row, Col, FormSelect, FormFeedback
 } from "shards-react";
 import AuthService from "../auth/authService"
 
@@ -29,7 +29,8 @@ class Register extends Component {
       address: "",
       city: "",
       state: "",
-      zipcode: ""
+      zipcode: "",
+      isEmailRegistered: false
     };
   }
 
@@ -86,7 +87,15 @@ class Register extends Component {
         () => {
           this.props.history.push("/");
           window.location.reload();
-        });
+        })
+      .catch(e=>{
+        let errMessage = e.response.data.message;
+        if(errMessage === "Error: Email is already in use!"){
+          this.setState({
+            isEmailRegistered: true
+          })
+        }
+      });
   }
 
   render(){
@@ -105,7 +114,9 @@ class Register extends Component {
                 name="email"
                 value={this.state.email}
                 onChange={this.onChangeEmail}
+                invalid={this.state.isEmailRegistered}
               />
+              <FormFeedback>The email has already registered.</FormFeedback>
             </FormGroup>
             <FormGroup>
               <FormInput

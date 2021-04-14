@@ -34,8 +34,8 @@ class ProductPosts extends React.Component {
         let productList = response.data.map((post, idx) => {
           return {
             title: post.title,
-            uuid: post.uuid
-            //productId: post.productId
+            uuid: post.uuid,
+            productId: post.productId
           }
         });
         this.setState({
