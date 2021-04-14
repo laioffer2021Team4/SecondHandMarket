@@ -35,7 +35,7 @@ export default class UserActions extends React.Component {
   componentDidMount() {
     let userInfo = AuthService.getCurrentUser();
     this.setState({
-      userName: userInfo.email
+      userName: userInfo.customer.firstName
     })
 
   }

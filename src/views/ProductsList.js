@@ -35,18 +35,12 @@ class ProductPosts extends React.Component {
           return {
             title: post.title,
             uuid: post.uuid
+            //productId: post.productId
           }
         });
         this.setState({
           PostsListOne: productList
         });
-        // ToDo make Byte[] work
-        // this.state.PostsListOne.map((post, idx) => (
-        //   UploadService.getImage(post.uuid)
-        //     .then(response => {
-        //       post.backgroudImage = "data:image/png;base64," +  response.data
-        //     })
-        // ))
       })
       .catch(e => {
         console.log(e);
@@ -67,6 +61,7 @@ class ProductPosts extends React.Component {
           <Row>
           {PostsListOne.map((post, idx) => (
               <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
+                <a href="/product/detail/{post.productId}" style={{textDecoration:"none"}}>
                 <Card className="card-post card-post--1">
                   <div
                     className="card-post__image"
@@ -74,12 +69,11 @@ class ProductPosts extends React.Component {
                   />
                   <CardBody>
                     <h5 className="card-title">
-                      <a href="#" className="text-fiord-blue">
-                        {post.title}
-                      </a>
+                      {post.title}
                     </h5>
                   </CardBody>
                 </Card>
+                </a>
               </Col>
             ))}
 
