@@ -43,7 +43,7 @@ public class Customer implements Serializable {
     @JsonIgnore
     private User user;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(unique = true)
     private Address address;
 
