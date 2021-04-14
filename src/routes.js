@@ -88,7 +88,7 @@ export default [
     component: UserProfile
   },
   {
-    path: "/product-detail",
+    path: "/product/:productId",
     layout: DefaultLayout,
     component: ProductDetail
   },

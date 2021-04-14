@@ -2,6 +2,15 @@ import React, {Component} from 'react';
 import {Descriptions} from "antd";
 
 class ProductInfo extends Component {
+
+  state = {
+    productInfo: null
+  }
+
+  componentDidMount() {
+    // set productInfo form props
+  }
+
   render() {
     return (
       <div>

@@ -5,11 +5,20 @@ import {
   CardTitle,
   CardImg,
   CardBody,
-  CardFooter
+  CardFooter,
+  Button
 } from "shards-react";
 import user_avatar from '../images/avatars/0.jpg';
 
 class UserInfo extends Component {
+
+  state = {
+    userInfo: null
+  }
+
+  // send info by userid(from product table ?
+
+
   render() {
     return (
       <Card>
@@ -18,9 +27,9 @@ class UserInfo extends Component {
         <CardBody>
           <CardTitle>Username</CardTitle>
           <p>basic info</p>
-          rate
+          <Button>Read more &rarr;</Button>
         </CardBody>
-        <CardFooter>Ask Me</CardFooter>
+        <CardFooter>Ask Me: phone number</CardFooter>
       </Card>
     );
   }
