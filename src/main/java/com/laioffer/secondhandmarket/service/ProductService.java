@@ -6,7 +6,6 @@ import com.laioffer.secondhandmarket.entity.Customer;
 import com.laioffer.secondhandmarket.entity.Product;
 import com.laioffer.secondhandmarket.entity.ProductImage;
 import com.laioffer.secondhandmarket.entity.SaleList;
-import com.laioffer.secondhandmarket.exceptions.BusinessLogicException;
 import com.laioffer.secondhandmarket.payload.request.AddProductRequest;
 import com.laioffer.secondhandmarket.payload.response.ProductResponse;
 import com.laioffer.secondhandmarket.repository.CustomerRepository;
@@ -14,14 +13,12 @@ import com.laioffer.secondhandmarket.repository.ProductRepository;
 import com.laioffer.secondhandmarket.repository.SaleListRepository;
 import com.laioffer.secondhandmarket.repository.TypeRepository;
 import com.laioffer.secondhandmarket.storage.StorageService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -53,16 +50,21 @@ public class ProductService {
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
-
+    @Transactional
     public Product getProductById(int productId) {
-        return productRepository.findProductById(productId)
+        Product product = productRepository.findProductById(productId)
                 .orElseThrow(() -> new RuntimeException("Product with id: " + productId + " does not exist"));
+        //Get images and address from database
+        Set<ProductImage> images = product.getImage();
+        Address address = product.getAddress();
+        return product;
     }
 
     public void deleteProduct(int productId) {
         productRepository.deleteProductById(productId);
     }
 
+    @Transactional
     public void addProduct(AddProductRequest addProductRequest) {
             Customer customer = customerService.getCustomerByEmail(addProductRequest.getEmail());
 
@@ -109,7 +111,7 @@ public class ProductService {
         productRepository.save(product);
     }
 
-    public List<Product> getProductByKeyword(String keyword) {
+    public List<ProductResponse> getProductByKeyword(String keyword) {
         List<Product> listC = productRepository.findByCategoryContaining(keyword);
         List<Product> listD = productRepository.findByDescriptionContaining(keyword);
         List<Product> listM = productRepository.findByManufacturerContaining(keyword);
@@ -121,7 +123,20 @@ public class ProductService {
         updateFinalList(listD, finalList, idSet);
         updateFinalList(listM, finalList, idSet);
         updateFinalList(listN, finalList, idSet);
-        return finalList;
+        // Convert the list of Product to list of ProductResponse
+        List<ProductResponse> finalResponse = new ArrayList<>();
+        for (Product product : finalList) {
+            String uuid = "";
+            Set<ProductImage> images = product.getImage();
+            if (images.size() > 0) {
+                uuid = images.iterator().next().getUuid();
+            }
+            finalResponse.add(ProductResponse.builder()
+                                            .title(product.getTitle())
+                                            .uuid(uuid)
+                                            .build());
+        }
+        return finalResponse;
     }
 
     private void updateFinalList(List<Product> rawList, List<Product> finalList, Set<Integer> idSet) {
@@ -136,6 +151,7 @@ public class ProductService {
         }
     }
 
+    @Transactional
     public List<ProductResponse> listAllProductsByEmail(String email) {
         SaleList saleList = customerService.getCustomerByEmail(email).getSaleList();
         if (saleList != null && saleList.getProductList() != null) {

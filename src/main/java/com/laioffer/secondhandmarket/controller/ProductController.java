@@ -74,4 +74,16 @@ public class ProductController {
         }
     }
 
+    @GetMapping("/products/search/{keyword}")
+    public ResponseEntity<List<ProductResponse>> searchProductByKeyword(@PathVariable String keyword) {
+        try {
+            List<ProductResponse> products = productService.getProductByKeyword(keyword);
+            if (products.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(products, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
