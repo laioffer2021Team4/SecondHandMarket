@@ -52,8 +52,12 @@ public class ProductService {
     }
     @Transactional
     public Product getProductById(int productId) {
-        return productRepository.findProductById(productId)
+        Product product = productRepository.findProductById(productId)
                 .orElseThrow(() -> new RuntimeException("Product with id: " + productId + " does not exist"));
+        //Get images and address from database
+        Set<ProductImage> images = product.getImage();
+        Address address = product.getAddress();
+        return product;
     }
 
     public void deleteProduct(int productId) {
