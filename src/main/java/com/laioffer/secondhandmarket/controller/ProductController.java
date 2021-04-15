@@ -74,7 +74,7 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/products/search/{keyword}")
+    @GetMapping("/search/{keyword}")
     public ResponseEntity<List<ProductResponse>> searchProductByKeyword(@PathVariable String keyword) {
         try {
             List<ProductResponse> products = productService.getProductByKeyword(keyword);

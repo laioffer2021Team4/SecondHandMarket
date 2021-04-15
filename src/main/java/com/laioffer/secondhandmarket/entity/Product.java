@@ -70,7 +70,7 @@ public class Product implements Serializable {
     @Column(name = "is_sold")
     private boolean isSold;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")
     @Builder.Default
     private Set<ProductImage> image = new HashSet<>();
