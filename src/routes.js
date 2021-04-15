@@ -18,6 +18,7 @@ import ProductsList from "./views/ProductsList"
 import PostNewProduct from "./views/PostNewProduct";
 import EditPost from "./views/EditPost";
 import ProductDetail from "./views/ProductDetail"
+import SearchResult from "./views/SearchResult";
 
 export default [
   {
@@ -90,5 +91,10 @@ export default [
     path: "/product-detail",
     layout: DefaultLayout,
     component: ProductDetail
+  },
+  {
+    path: "/search-result",
+    layout:DefaultLayout,
+    component: SearchResult
   }
 ];

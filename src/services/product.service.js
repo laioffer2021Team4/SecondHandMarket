@@ -26,6 +26,10 @@ class ProductService {
     const email = JSON.parse(localStorage.getItem('user')).email;
     return axios.get(API_URL + "products/" + email, {headers: authHeader()})
   }
+
+  searchProductByKeyword(keyword) {
+    return axios.get(API_URL + "search/" + keyword, {headers: authHeader()})
+  }
 }
 
 export default new ProductService();
