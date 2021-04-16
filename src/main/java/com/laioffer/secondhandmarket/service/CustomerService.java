@@ -40,6 +40,7 @@ public class CustomerService {
                             .build())
                     .firstName(signupRequest.getFirstname())
                     .lastName(signupRequest.getLastname())
+                    .useremail(user.getEmail())
                     .user(user)
                     .build());
 

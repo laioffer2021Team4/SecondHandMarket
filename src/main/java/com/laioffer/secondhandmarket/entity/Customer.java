@@ -37,6 +37,7 @@ public class Customer implements Serializable {
     private String firstName;
     private String lastName;
     private String customerPhone;
+    private String useremail;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
