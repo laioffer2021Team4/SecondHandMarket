@@ -8,7 +8,7 @@ import {
   CardFooter,
   Button
 } from "shards-react";
-import user_avatar from '../images/avatars/0.jpg';
+import user_avatar from '../images/avatars/user.png';
 
 class UserInfo extends Component {
 
@@ -20,16 +20,22 @@ class UserInfo extends Component {
 
 
   render() {
+    const userInfo = this.props.userInfo;
     return (
       <Card>
         <CardHeader>Seller Info</CardHeader>
         <CardImg src={user_avatar} />
         <CardBody>
-          <CardTitle>Username</CardTitle>
-          <p>basic info</p>
-          <Button>Read more &rarr;</Button>
+          <CardTitle>{userInfo.firstName} {userInfo.lastName}</CardTitle>
+          {
+            // Object.keys(userInfo.address).map((key, i) => {
+            //   return <div>{userInfo.address[key]}</div>
+            // })
+          }
+          <br/>
+          <Button>Ask Me &rarr;</Button>
         </CardBody>
-        <CardFooter>Ask Me: phone number</CardFooter>
+        <CardFooter> </CardFooter>
       </Card>
     );
   }

@@ -11,15 +11,13 @@ import {
   Row,
   Col,
   Card,
-  CardBody,
-  Button
+  CardBody
 } from "shards-react";
 
 class ProductPosts extends React.Component {
   constructor(props) {
     super(props)
     this.listAllMyProducts = this.listAllMyProducts.bind(this);
-    this.redirectToProductDetails = this.redirectToProductDetails.bind(this);
     this.state = {
       // First list of posts.
       PostsListOne: []
@@ -49,16 +47,6 @@ class ProductPosts extends React.Component {
       });
   }
 
-  redirectToProductDetails(productId, e){
-    e.preventDefault();
-    this.props.history.push({
-             pathname:"/product-detail",
-             state:{
-                 productId: productId
-              }
-            });
-  }
-
   render() {
     const {  PostsListOne   } = this.state;
     return (
@@ -73,20 +61,19 @@ class ProductPosts extends React.Component {
           <Row>
           {PostsListOne.map((post, idx) => (
               <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
-                {/*<a href="#">*/}
-                <Card className="card-post card-post--1" >
+                <Card className="card-post card-post--1">
                   <div
                     className="card-post__image"
                     style={{ backgroundImage: "url(http://localhost:8080/api/images/" + post.uuid +")" }}
                   />
                   <CardBody>
                     <h5 className="card-title">
-                      {post.title}
+                      <a href={`/product/${post.productId}`} className="text-fiord-blue">
+                        {post.title}
+                      </a>
                     </h5>
-                    <Button variant="primary" onClick={(e) => this.redirectToProductDetails(post.productId, e)}>View Details</Button>
                   </CardBody>
                 </Card>
-                {/*</a>*/}
               </Col>
             ))}
 

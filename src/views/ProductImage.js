@@ -1,21 +1,6 @@
 import React, {Component} from 'react';
 import ImageGallery from 'react-image-gallery';
 
-const images = [
-  {
-    original: 'https://picsum.photos/id/1018/1000/600/',
-    thumbnail: 'https://picsum.photos/id/1018/250/150/',
-  },
-  {
-    original: 'https://picsum.photos/id/1015/1000/600/',
-    thumbnail: 'https://picsum.photos/id/1015/250/150/',
-  },
-  {
-    original: 'https://picsum.photos/id/1019/1000/600/',
-    thumbnail: 'https://picsum.photos/id/1019/250/150/',
-  },
-];
-
 class ProductImage extends Component {
 
   state = {
@@ -28,9 +13,24 @@ class ProductImage extends Component {
     // props.xxx.images && props.xxx.images.length > 0
     // create images[]
     // for each image, push its {original, thumbnail} into images[]
+    if (this.props.images && this.props.images.length > 0) {
+      let images = [];
+
+      this.props.images && this.props.images.map(item => {
+        images.push({
+          original: `http://localhost:8080/api/images/${item.uuid}`,
+          thumbnail: `http://localhost:8080/api/images/${item.uuid}`
+        })
+      })
+
+      this.setState({
+        images: images
+      })
+    }
   }
 
   render() {
+    const { images } = this.state;
     return (
       <div >
         <ImageGallery items={images} />;
