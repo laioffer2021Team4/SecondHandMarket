@@ -15,12 +15,28 @@ import {
 import PageTitle from "../components/common/PageTitle";
 
 class Home extends React.Component {
+
+  setBodyBg = status => {
+    const $body = document.body;
+    if ($body instanceof HTMLBodyElement) {
+      $body.setAttribute('bg', status ? 'set' : 'none');
+    }
+  }
+
+  componentDidMount() {
+    this.setBodyBg(true);
+  }
+
+  componentWillUnmount() {
+    this.setBodyBg(false);
+  }
+
   constructor(props) {
     super(props);
 
     this.state = {
       //First list of posts.
-      PostsListOne:[],
+      PostsListOne: [],
       // PostsListOne: [
       //   {
       //     backgroundImage: require("../images/content-management/1.jpeg"),
@@ -73,13 +89,13 @@ class Home extends React.Component {
   }
 
   render() {
-    const {  PostsListOne   } = this.state;
+    const {PostsListOne} = this.state;
 
     return (
       <Container fluid className="main-content-container px-4">
         {/* Page Header */}
         <Row noGutters className="page-header py-4">
-          <PageTitle sm="4" className="text-sm-left" />
+          <PageTitle sm="4" className="text-sm-left"/>
         </Row>
 
         {/* First Row of Posts */}
@@ -89,7 +105,7 @@ class Home extends React.Component {
               <Card small className="card-post card-post--1">
                 <div
                   className="card-post__image"
-                  style={{ backgroundImage: `url(${post.backgroundImage})` }}
+                  style={{backgroundImage: `url(${post.backgroundImage})`}}
                 >
                   <Badge
                     pill
@@ -101,7 +117,7 @@ class Home extends React.Component {
                     <a
                       href="#"
                       className="card-post__author-avatar card-post__author-avatar--small"
-                      style={{ backgroundImage: `url('${post.authorAvatar}')` }}
+                      style={{backgroundImage: `url('${post.authorAvatar}')`}}
                     >
                       Written by {post.author}
                     </a>
