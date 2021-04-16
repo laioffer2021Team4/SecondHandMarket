@@ -56,7 +56,7 @@ public class Product implements Serializable {
 
     private double price;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Address address;
 
     @Column(name = "view_number")
