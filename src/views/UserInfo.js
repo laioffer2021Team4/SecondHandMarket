@@ -12,19 +12,22 @@ import user_avatar from '../images/avatars/user.png';
 
 class UserInfo extends Component {
 
-  state = {
-    userInfo: null
-  }
+  // state = {
+  //   userInfo: null
+  // }
 
   // send info by userid(from product table ?
+  // displayAddress = address => {
+  //
+  // }
 
 
   render() {
     const userInfo = this.props.userInfo;
     return (
-      <Card>
-        <CardHeader>Seller Info</CardHeader>
-        <CardImg src={user_avatar} />
+      <Card style={{maxWidth: "100%", height: "inherit"}}>
+        <CardHeader>Here's Seller</CardHeader>
+        <CardImg style={{display: "block",marginLeft:"auto", marginRight:"auto", maxWidth: "80%"}} src={user_avatar} />
         <CardBody>
           <CardTitle>{userInfo.firstName} {userInfo.lastName}</CardTitle>
           {
@@ -32,10 +35,9 @@ class UserInfo extends Component {
             //   return <div>{userInfo.address[key]}</div>
             // })
           }
-          <br/>
-          <Button>Ask Me &rarr;</Button>
+          <Button style={{position: "relative", top: "10px"}}>More Info &rarr;</Button>
         </CardBody>
-        <CardFooter> </CardFooter>
+        <CardFooter><a href={`mailto:${userInfo.useremail}`}>contact me</a></CardFooter>
       </Card>
     );
   }
