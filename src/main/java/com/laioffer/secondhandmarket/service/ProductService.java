@@ -134,6 +134,7 @@ public class ProductService {
             finalResponse.add(ProductResponse.builder()
                                             .title(product.getTitle())
                                             .uuid(uuid)
+                                            .productId(product.getId())
                                             .build());
         }
         return finalResponse;
