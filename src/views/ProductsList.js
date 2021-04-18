@@ -61,6 +61,7 @@ class ProductPosts extends React.Component {
           <Row>
           {PostsListOne.map((post, idx) => (
               <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
+                <a href={`/product/${post.productId}`} className="text-fiord-blue" style={{textDecoration:"none"}}>
                 <Card className="card-post card-post--1">
                   <div
                     className="card-post__image"
@@ -68,12 +69,11 @@ class ProductPosts extends React.Component {
                   />
                   <CardBody>
                     <h5 className="card-title">
-                      <a href={`/product/${post.productId}`} className="text-fiord-blue">
                         {post.title}
-                      </a>
                     </h5>
                   </CardBody>
                 </Card>
+                </a>
               </Col>
             ))}
 

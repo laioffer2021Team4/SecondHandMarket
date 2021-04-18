@@ -37,7 +37,7 @@ class UserInfo extends Component {
           }
           <Button style={{position: "relative", top: "10px"}}>More Info &rarr;</Button>
         </CardBody>
-        <CardFooter><a href={`mailto:${userInfo.useremail}`}>contact me</a></CardFooter>
+        <CardFooter><a href={`mailto:${userInfo.useremail}`}>Contact Me</a></CardFooter>
       </Card>
     );
   }

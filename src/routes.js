@@ -19,6 +19,7 @@ import PostNewProduct from "./views/PostNewProduct";
 import EditPost from "./views/EditPost";
 import ProductDetail from "./views/ProductDetail"
 import SearchResult from "./views/SearchResult";
+import SpareHome from "./views/spareHome"
 
 export default [
   {
