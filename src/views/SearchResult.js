@@ -8,14 +8,12 @@ import {
   Col,
   Card,
   CardBody,
-  Button
 } from "shards-react";
 
 class SearchResult extends React.Component {
   constructor(props) {
     super(props);
     this.listAllSearchResults = this.listAllSearchResults.bind(this);
-    this.redirectToProductDetail = this.redirectToProductDetail.bind(this);
     this.state = {
       resultList: []
     }
@@ -45,16 +43,6 @@ class SearchResult extends React.Component {
       });
   }
 
-  redirectToProductDetail(productId, e) {
-    e.preventDefault();
-    this.props.history.push({
-      pathname:"/product-detail",
-      state:{
-        productId: productId
-      }
-    });
-  }
-
   render() {
     const { resultList } = this.state;
     return (
@@ -69,6 +57,7 @@ class SearchResult extends React.Component {
           <Row>
             {resultList.map((post, idx) => (
               <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
+                <a href={`/product/${post.productId}`} className="text-fiord-blue" style={{textDecoration:"none"}}>
                 <Card className="card-post card-post--1">
                   <div
                     className="card-post__image"
@@ -78,9 +67,9 @@ class SearchResult extends React.Component {
                     <h5 className="card-title">
                       {post.title}
                     </h5>
-                    <Button variant="primary" onClick={(e) => this.redirectToProductDetail(post.productId, e)}>View Details</Button>
                   </CardBody>
                 </Card>
+                </a>
               </Col>
             ))}
           </Row>
