@@ -54,7 +54,7 @@ export default class UserActions extends React.Component {
           <span className="d-none d-md-inline-block">{this.state.userName}</span>
         </DropdownToggle>
         <Collapse tag={DropdownMenu} right small open={this.state.visible}>
-          <DropdownItem tag={Link} to="profile">
+          <DropdownItem tag={Link} to="/profile">
             <i className="material-icons">&#xE7FD;</i> Profile
           </DropdownItem>
           {/*<DropdownItem tag={Link} to="edit-user-profile">*/}
@@ -63,7 +63,7 @@ export default class UserActions extends React.Component {
           {/*<DropdownItem tag={Link} to="file-manager-list">*/}
           {/*  <i className="material-icons">&#xE2C7;</i> Files*/}
           {/*</DropdownItem>*/}
-          <DropdownItem tag={Link} to="myposts">
+          <DropdownItem tag={Link} to="/myposts">
             <i className="material-icons">&#xE896;</i> My posts
           </DropdownItem>
           <DropdownItem divider />
