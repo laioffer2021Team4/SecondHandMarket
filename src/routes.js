@@ -56,7 +56,7 @@ export default [
   {
     path: "/home",
     layout: DefaultLayout,
-    component: Home
+    component: SpareHome
   },
   {
     path: "/register",
