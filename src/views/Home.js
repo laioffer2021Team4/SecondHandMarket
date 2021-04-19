@@ -36,7 +36,7 @@ class Home extends React.Component {
 
     this.state = {
       //First list of posts.
-      PostsListOne: [],
+      PostsListOne: []
       // PostsListOne: [
       //   {
       //     backgroundImage: require("../images/content-management/1.jpeg"),

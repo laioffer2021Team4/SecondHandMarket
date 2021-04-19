@@ -38,7 +38,7 @@ class Login extends Component {
 
     AuthService.login(this.state.email, this.state.password).then(
       () => {
-        this.props.history.push("/profile");
+        this.props.history.push("/");
         window.location.reload();
       });
 

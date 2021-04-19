@@ -11,7 +11,7 @@ import authService from "../../../../auth/authService"
      super(props);
      this.state={isAuth: undefined};
    }
-   componentDidMount() {
+   componentWillMount() {
      if(authService.getCurrentUser() && authService.getCurrentUser().accessToken ){
        this.setState({isAuth: true});
      } else{

@@ -79,4 +79,4 @@ class SearchResult extends React.Component {
   }
 }
 
-export default withAuth(SearchResult);
+export default SearchResult;
