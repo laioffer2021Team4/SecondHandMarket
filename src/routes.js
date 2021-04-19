@@ -20,6 +20,7 @@ import EditPost from "./views/EditPost";
 import ProductDetail from "./views/ProductDetail"
 import SearchResult from "./views/SearchResult";
 import SpareHome from "./views/spareHome"
+import About from "./views/About"
 
 export default [
   {
@@ -97,5 +98,10 @@ export default [
     path: "/search-result",
     layout:DefaultLayout,
     component: SearchResult
+  },
+  {
+    path: "/about",
+    layout:DefaultLayout,
+    component: About
   }
 ];

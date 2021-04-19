@@ -47,7 +47,7 @@ MainFooter.defaultProps = {
     },
     {
       title: "About",
-      to: "#"
+      to: "/about"
     }
   ]
 };
