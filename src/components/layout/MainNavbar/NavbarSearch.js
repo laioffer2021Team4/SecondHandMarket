@@ -28,9 +28,7 @@ class NavbarSearch extends React.Component {
     e.preventDefault();
     this.props.history.push({
       pathname:"/search-result",
-      state:{
-        keyword: keyword
-      }
+      search: "?q=" + keyword,
     });
   }
 

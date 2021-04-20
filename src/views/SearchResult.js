@@ -15,18 +15,35 @@ class SearchResult extends React.Component {
     super(props);
     this.listAllSearchResults = this.listAllSearchResults.bind(this);
     this.state = {
+      query: '',
       resultList: []
     }
   }
 
   componentDidMount() {
-    const {keyword} = this.props.location.state
-    this.listAllSearchResults(keyword);
+    this.initPage();
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    const searchQuery = this.props.location.search;
+    if (searchQuery && searchQuery !== prevProps.location.search) {
+      this.initPage();
+    }
+  }
+
+  initPage = () => {
+    const query = new URLSearchParams(this.props.location.search);
+    const q = query.get('q');
+    this.setState({query: q});
+    this.listAllSearchResults(q);
+  };
 
   listAllSearchResults(keyword) {
     ProductService.searchProductByKeyword(keyword)
       .then(response => {
+        if (!response.data) {
+          response.data = [];
+        }
         let responseList = response.data.map((post, idx) => {
           return {
             title: post.title,
@@ -50,7 +67,7 @@ class SearchResult extends React.Component {
         <div style={{margin:"10px 0 0 20px"}}>
           {/*page title: My Posts*/}
           <div className="page-header py-4">
-            <h3>Search result for "{this.props.location.state.keyword}"</h3>
+            <h3>Search result for "{this.state.query}"</h3>
           </div>
 
           {/*posts*/}
