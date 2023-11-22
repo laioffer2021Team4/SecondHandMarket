@@ -27,23 +27,23 @@ import java.io.Serializable;
 @Table(name = "address")
 public class Address implements Serializable {
 
-    private static final long serialVersionUID = -1745369143190678419L;
+  private static final long serialVersionUID = -1745369143190678419L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "type_id")
-    @JsonIgnore
-    private Type type;
-    private String street;
-    private String city;
-    private String states;
-    private String zipcode;
+  @ManyToOne
+  @JoinColumn(name = "type_id")
+  @JsonIgnore
+  private Type type;
+  private String street;
+  private String city;
+  private String states;
+  private String zipcode;
 
 
-    @OneToOne(mappedBy = "address")
-    @JsonIgnore
-    private Product product;
+  @OneToOne(mappedBy = "address")
+  @JsonIgnore
+  private Product product;
 }

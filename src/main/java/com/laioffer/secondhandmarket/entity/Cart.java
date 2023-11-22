@@ -20,15 +20,15 @@ import java.util.Set;
 @Table(name = "cart")
 public class Cart implements Serializable {
 
-    private static final long serialVersionUID = 332991482619527894L;
+  private static final long serialVersionUID = 332991482619527894L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private int id;
 
-    private double totalPrice;
+  private double totalPrice;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<CartItem> productList;
+  @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  private Set<CartItem> productList;
 
 }

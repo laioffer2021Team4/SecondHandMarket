@@ -19,12 +19,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "roles")
 public class Role {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(length = 20)
-    private UserRole name;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
+
+  @Enumerated(EnumType.STRING)
+  @Column(length = 20)
+  private UserRole name;
 
 }

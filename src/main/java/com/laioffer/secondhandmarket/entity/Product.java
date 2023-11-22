@@ -37,45 +37,45 @@ import java.util.Set;
 @Table(name = "product")
 public class Product implements Serializable {
 
-    private static final long serialVersionUID = 5859643279933388869L;
+  private static final long serialVersionUID = 5859643279933388869L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private int id;
 
-    private String category;
+  private String category;
 
-    private String description;
+  private String description;
 
-    private String manufacturer;
+  private String manufacturer;
 
-    private String title;
+  private String title;
 
-    @Column(name = "product_condition")
-    private String condition;
+  @Column(name = "product_condition")
+  private String condition;
 
-    private double price;
+  private double price;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Address address;
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private Address address;
 
-    @Column(name = "view_number")
-    private double viewNumber;
+  @Column(name = "view_number")
+  private double viewNumber;
 
-    @Basic
-    @Temporal(TemporalType.DATE)
-    @Column(name = "post_date")
-    private Date postDate;
+  @Basic
+  @Temporal(TemporalType.DATE)
+  @Column(name = "post_date")
+  private Date postDate;
 
-    @Column(name = "is_sold")
-    private boolean isSold;
+  @Column(name = "is_sold")
+  private boolean isSold;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    @Builder.Default
-    private Set<ProductImage> image = new HashSet<>();
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinColumn(name = "product_id")
+  @Builder.Default
+  private Set<ProductImage> image = new HashSet<>();
 
-    @ManyToOne
-    private Customer customer;
+  @ManyToOne
+  private Customer customer;
 
 }

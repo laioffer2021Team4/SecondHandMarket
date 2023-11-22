@@ -19,19 +19,19 @@ import java.io.Serializable;
 @Table(name = "cart_item")
 public class CartItem implements Serializable {
 
-    private static final long serialVersionUID = 3699695338675889537L;
+  private static final long serialVersionUID = 3699695338675889537L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private int id;
 
-    private double price;
+  private double price;
 
-    @ManyToOne
-    private Product product;
+  @ManyToOne
+  private Product product;
 
-    @ManyToOne
-    @JsonIgnore
-    private Cart cart;
+  @ManyToOne
+  @JsonIgnore
+  private Cart cart;
 
 }

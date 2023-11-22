@@ -22,19 +22,19 @@ import javax.validation.Valid;
 @RequestMapping("/api/customer")
 public class CustomerController {
 
-    private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
+  private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
-    @Autowired
-    CustomerService customerService;
+  @Autowired
+  CustomerService customerService;
 
-    @GetMapping("/profile")
-    public ResponseEntity<?> getProfile(@Valid @RequestBody ProfileRequest profileRequest) {
-        try {
-            Customer customer = customerService.getCustomerByEmail(profileRequest.getEmail());
-            return ResponseEntity.ok(customer);
-        } catch (RuntimeException e) {
-            logger.error("Failed to get Profile: " + e);
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+  @GetMapping("/profile")
+  public ResponseEntity<?> getProfile(@Valid @RequestBody ProfileRequest profileRequest) {
+    try {
+      Customer customer = customerService.getCustomerByEmail(profileRequest.getEmail());
+      return ResponseEntity.ok(customer);
+    } catch (RuntimeException e) {
+      logger.error("Failed to get Profile: " + e);
+      return ResponseEntity.badRequest().body(e.getMessage());
     }
+  }
 }

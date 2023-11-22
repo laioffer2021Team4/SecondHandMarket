@@ -30,33 +30,33 @@ import java.util.Set;
 @Getter
 @Entity
 @Table(name = "users",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = "email")
-        })
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = "email")
+    })
 public class User implements Serializable {
 
-    private static final long serialVersionUID = 2681531852204068105L;
+  private static final long serialVersionUID = 2681531852204068105L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @NotBlank
-    @Size(max = 50)
-    private String email;
+  @NotBlank
+  @Size(max = 50)
+  private String email;
 
-    @NotBlank
-    @Size(max = 120)
-    private String password;
+  @NotBlank
+  @Size(max = 120)
+  private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_email"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    @Builder.Default
-    private Set<Role> roles = new HashSet<>();
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(name = "user_roles",
+      joinColumns = @JoinColumn(name = "user_email"),
+      inverseJoinColumns = @JoinColumn(name = "role_id"))
+  @Builder.Default
+  private Set<Role> roles = new HashSet<>();
 
-    @OneToOne(mappedBy = "user")
-    private Customer customer;
+  @OneToOne(mappedBy = "user")
+  private Customer customer;
 
 }

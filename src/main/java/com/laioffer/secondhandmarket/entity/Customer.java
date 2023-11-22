@@ -28,37 +28,37 @@ import java.io.Serializable;
 @Table(name = "customer")
 public class Customer implements Serializable {
 
-    private static final long serialVersionUID = -8334783496425773445L;
+  private static final long serialVersionUID = -8334783496425773445L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private int id;
 
-    private String firstName;
-    private String lastName;
-    private String customerPhone;
+  private String firstName;
+  private String lastName;
+  private String customerPhone;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(unique = true)
-    @JsonIgnore
-    private User user;
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(unique = true)
+  @JsonIgnore
+  private User user;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(unique = true)
-    private Address address;
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @JoinColumn(unique = true)
+  private Address address;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(unique = true)
-    @JsonIgnore
-    private Cart cart;
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinColumn(unique = true)
+  @JsonIgnore
+  private Cart cart;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(unique = true)
-    @JsonIgnore
-    private SaleList saleList;
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinColumn(unique = true)
+  @JsonIgnore
+  private SaleList saleList;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(unique = true)
-    @JsonIgnore
-    private Avatar avatar;
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinColumn(unique = true)
+  @JsonIgnore
+  private Avatar avatar;
 }

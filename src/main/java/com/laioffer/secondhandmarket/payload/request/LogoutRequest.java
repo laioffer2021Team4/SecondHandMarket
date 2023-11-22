@@ -8,19 +8,20 @@ import javax.validation.constraints.NotBlank;
 @Setter
 @Getter
 public class LogoutRequest {
-    @NotBlank
-    private String email;
 
-    public String getEmail() {
-        return email;
-    }
+  @NotBlank
+  private String email;
 
-    public void setUsername(String email) {
-        this.email = email;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public String getUsername() {
-        return email;
-    }
+  public void setUsername(String email) {
+    this.email = email;
+  }
+
+  public String getUsername() {
+    return email;
+  }
 
 }

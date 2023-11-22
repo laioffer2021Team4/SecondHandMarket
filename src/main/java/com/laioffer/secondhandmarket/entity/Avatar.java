@@ -18,16 +18,16 @@ import java.io.Serializable;
 @Table(name = "avatar")
 public class Avatar implements Serializable {
 
-    private static final long serialVersionUID = 5590648007364082800L;
+  private static final long serialVersionUID = 5590648007364082800L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private int id;
 
-    private String url;
+  private String url;
 
-    @OneToOne
-    @JsonIgnore
-    private Customer customer;
+  @OneToOne
+  @JsonIgnore
+  private Customer customer;
 
 }

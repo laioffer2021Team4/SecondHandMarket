@@ -19,54 +19,56 @@ import java.util.Date;
 
 @Component
 public class JasonWebTokenUtils {
-    private static final Logger logger = LoggerFactory.getLogger(JasonWebTokenUtils.class);
-    private static final String REDIS_SET_ACTIVE_SUBJECTS = "active-subjects";
 
-    @Value("${secondhandmarket.app.jwtSecret}")
-    private String jwtSecret;
+  private static final Logger logger = LoggerFactory.getLogger(JasonWebTokenUtils.class);
+  private static final String REDIS_SET_ACTIVE_SUBJECTS = "active-subjects";
 
-    @Value("${secondhandmarket.app.jwtExpirationMs}")
-    private int jwtExpirationMs;
+  @Value("${secondhandmarket.app.jwtSecret}")
+  private String jwtSecret;
 
-    public String generateJwtToken(Authentication authentication, String userEmail) {
+  @Value("${secondhandmarket.app.jwtExpirationMs}")
+  private int jwtExpirationMs;
 
-        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+  public String generateJwtToken(Authentication authentication, String userEmail) {
 
-        RedisUtil.INSTANCE.addToSetCache(REDIS_SET_ACTIVE_SUBJECTS, userEmail);
+    UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
-        return Jwts.builder()
-                .setSubject((userPrincipal.getEmail()))
-                .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
-                .compact();
+    RedisUtil.INSTANCE.addToSetCache(REDIS_SET_ACTIVE_SUBJECTS, userEmail);
+
+    return Jwts.builder()
+        .setSubject((userPrincipal.getEmail()))
+        .setIssuedAt(new Date())
+        .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+        .signWith(SignatureAlgorithm.HS512, jwtSecret)
+        .compact();
+  }
+
+  public String getUserEmailFromJwtToken(String token) {
+    return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+  }
+
+  public boolean validateJwtToken(String authToken) {
+    try {
+      Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+      return RedisUtil.INSTANCE.isInSetCache(REDIS_SET_ACTIVE_SUBJECTS,
+          getUserEmailFromJwtToken(authToken));
+
+    } catch (SignatureException e) {
+      logger.error("Invalid JWT signature: {}", e.getMessage());
+    } catch (MalformedJwtException e) {
+      logger.error("Invalid JWT token: {}", e.getMessage());
+    } catch (ExpiredJwtException e) {
+      logger.error("JWT token is expired: {}", e.getMessage());
+    } catch (UnsupportedJwtException e) {
+      logger.error("JWT token is unsupported: {}", e.getMessage());
+    } catch (IllegalArgumentException e) {
+      logger.error("JWT claims string is empty: {}", e.getMessage());
     }
 
-    public String getUserEmailFromJwtToken(String token) {
-        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
-    }
+    return false;
+  }
 
-    public boolean validateJwtToken(String authToken) {
-        try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
-            return RedisUtil.INSTANCE.isInSetCache(REDIS_SET_ACTIVE_SUBJECTS, getUserEmailFromJwtToken(authToken));
-
-        } catch (SignatureException e) {
-            logger.error("Invalid JWT signature: {}", e.getMessage());
-        } catch (MalformedJwtException e) {
-            logger.error("Invalid JWT token: {}", e.getMessage());
-        } catch (ExpiredJwtException e) {
-            logger.error("JWT token is expired: {}", e.getMessage());
-        } catch (UnsupportedJwtException e) {
-            logger.error("JWT token is unsupported: {}", e.getMessage());
-        } catch (IllegalArgumentException e) {
-            logger.error("JWT claims string is empty: {}", e.getMessage());
-        }
-
-        return false;
-    }
-
-    public static void invalidateRelatedTokens(LogoutRequest logoutRequest) {
-        RedisUtil.INSTANCE.removeFromSetCache(REDIS_SET_ACTIVE_SUBJECTS, logoutRequest.getUsername());
-    }
+  public static void invalidateRelatedTokens(LogoutRequest logoutRequest) {
+    RedisUtil.INSTANCE.removeFromSetCache(REDIS_SET_ACTIVE_SUBJECTS, logoutRequest.getUsername());
+  }
 }

@@ -25,65 +25,67 @@ import static java.util.UUID.randomUUID;
 @PropertySource("classpath:application.properties")
 @Repository
 public class AmazonS3Client {
-    private AmazonS3 s3client;
-    @Value("${s3.endpointUrl}")
-    private String endpointUrl;
-    @Value("${s3.bucketName}")
-    private String bucketName;
-    @Value("${s3.accessKeyId}")
-    private String accessKeyId;
-    @Value("${s3.secretKey}")
-    private String secretKey;
-    @Value("${s3.region}")
-    private String region;
 
-    @PostConstruct
-    private void initializeAmazon() {
-        AWSCredentials credentials
-                = new BasicAWSCredentials(this.accessKeyId, this.secretKey);
-        this.s3client = AmazonS3ClientBuilder
-                .standard()
-                .withRegion(region)
-                .withCredentials(new AWSStaticCredentialsProvider(credentials))
-                .build();
-    }
+  private AmazonS3 s3client;
+  @Value("${s3.endpointUrl}")
+  private String endpointUrl;
+  @Value("${s3.bucketName}")
+  private String bucketName;
+  @Value("${s3.accessKeyId}")
+  private String accessKeyId;
+  @Value("${s3.secretKey}")
+  private String secretKey;
+  @Value("${s3.region}")
+  private String region;
 
-    public String uploadFile(MultipartFile multipartFile)
-            throws Exception {
-        File file = convertMultiPartToFile(multipartFile);
-        String fileName = randomUUID().toString();
-        uploadFileTos3bucket(fileName, file);
-        file.delete();
-        return fileName;
-    }
+  @PostConstruct
+  private void initializeAmazon() {
+    AWSCredentials credentials
+        = new BasicAWSCredentials(this.accessKeyId, this.secretKey);
+    this.s3client = AmazonS3ClientBuilder
+        .standard()
+        .withRegion(region)
+        .withCredentials(new AWSStaticCredentialsProvider(credentials))
+        .build();
+  }
 
-    public S3Object getFileFromS3Bucket(String fileName) {
-        return s3client.getObject(bucketName, fileName);
-    }
+  public String uploadFile(MultipartFile multipartFile)
+      throws Exception {
+    File file = convertMultiPartToFile(multipartFile);
+    String fileName = randomUUID().toString();
+    uploadFileTos3bucket(fileName, file);
+    file.delete();
+    return fileName;
+  }
 
-    public void deleteFileFromS3Bucket(String fileUuid) {
-        s3client.deleteObject(bucketName, fileUuid);
-    }
+  public S3Object getFileFromS3Bucket(String fileName) {
+    return s3client.getObject(bucketName, fileName);
+  }
 
-    private void uploadFileTos3bucket(String fileName, File file) {
-        s3client.putObject(bucketName, fileName, file);
-    }
+  public void deleteFileFromS3Bucket(String fileUuid) {
+    s3client.deleteObject(bucketName, fileUuid);
+  }
+
+  private void uploadFileTos3bucket(String fileName, File file) {
+    s3client.putObject(bucketName, fileName, file);
+  }
 
 
-    private File convertMultiPartToFile(MultipartFile file)
-            throws IOException {
-        File convFile = new File(Objects.requireNonNull(file.getOriginalFilename()));
-        FileOutputStream fos = new FileOutputStream(convFile);
-        fos.write(file.getBytes());
-        fos.close();
-        return convFile;
-    }
+  private File convertMultiPartToFile(MultipartFile file)
+      throws IOException {
+    File convFile = new File(Objects.requireNonNull(file.getOriginalFilename()));
+    FileOutputStream fos = new FileOutputStream(convFile);
+    fos.write(file.getBytes());
+    fos.close();
+    return convFile;
+  }
 
-    private String generateFileName(MultipartFile multiPart) {
-        return new Date().getTime() + "-" + Objects.requireNonNull(multiPart.getOriginalFilename()).replace(" ", "_");
-    }
+  private String generateFileName(MultipartFile multiPart) {
+    return new Date().getTime() + "-" + Objects.requireNonNull(multiPart.getOriginalFilename())
+        .replace(" ", "_");
+  }
 
-    private String getFileNameFromFileURL(String fileUrl) {
-        return fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
-    }
+  private String getFileNameFromFileURL(String fileUrl) {
+    return fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+  }
 }

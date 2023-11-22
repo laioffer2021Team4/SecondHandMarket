@@ -28,15 +28,15 @@ import java.util.Set;
 @Table(name = "salelist")
 public class SaleList implements Serializable {
 
-    private static final long serialVersionUID = 5859643279933388869L;
+  private static final long serialVersionUID = 5859643279933388869L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private int id;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "sale_list_id")
-    @Builder.Default
-    private Set<Product> productList = new HashSet<>();
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinColumn(name = "sale_list_id")
+  @Builder.Default
+  private Set<Product> productList = new HashSet<>();
 
 }

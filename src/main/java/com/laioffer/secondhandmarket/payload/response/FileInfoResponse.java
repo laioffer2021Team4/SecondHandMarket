@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 public class FileInfoResponse {
 
-    private String name;
-    private String url;
+  private String name;
+  private String url;
 
 }

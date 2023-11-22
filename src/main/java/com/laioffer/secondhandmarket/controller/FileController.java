@@ -36,82 +36,84 @@ import java.util.stream.Collectors;
 @RequestMapping("/api")
 public class FileController {
 
-    private final StorageService storageService;
-    Logger logger = LoggerFactory.getLogger(FileController.class);
+  private final StorageService storageService;
+  Logger logger = LoggerFactory.getLogger(FileController.class);
 
-    @Autowired
-    public FileController(StorageService storageService) {
-        this.storageService = storageService;
+  @Autowired
+  public FileController(StorageService storageService) {
+    this.storageService = storageService;
+  }
+
+  @GetMapping("/files")
+  public ResponseEntity<List<FileInfoResponse>> getListFiles() {
+
+    List<FileInfoResponse> fileInfoResponses = storageService.loadAll().map(path -> {
+      String filename = path.getFileName().toString();
+      String url = MvcUriComponentsBuilder
+          .fromMethodName(FileController.class, "serveFile", path.getFileName().toString()).build()
+          .toString();
+      return new FileInfoResponse(filename, url);
+    }).collect(Collectors.toList());
+    return ResponseEntity.status(HttpStatus.OK).body(fileInfoResponses);
+
+  }
+
+  @GetMapping("/files/{filename:.+}")
+  @ResponseBody
+  public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+
+    Resource file = storageService.loadAsResource(filename);
+    return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+        "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+  }
+
+  @PostMapping("/upload")
+  public ResponseEntity<FileInfoResponse> uploadFile(@RequestParam("file") MultipartFile file) {
+    try {
+      String fileName = storageService.store(file);
+      logger.info("Upload File UUID: " + fileName);
+      return ResponseEntity.status(HttpStatus.OK).body(
+          new FileInfoResponse(file.getOriginalFilename(), fileName));
+    } catch (Exception e) {
+      logger.error("Store File Error:" + e.toString());
+      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(
+          new FileInfoResponse("Could not upload the file: " + file.getOriginalFilename(), ""));
     }
+  }
 
-    @GetMapping("/files")
-    public ResponseEntity<List<FileInfoResponse>> getListFiles() {
+  @GetMapping("/images/{fileName}")
+  public ResponseEntity<byte[]> getImageFile(@PathVariable String fileName) {
+    try {
+      byte[] media = storageService.getByteArrayFromFile(fileName);
+      HttpHeaders headers = new HttpHeaders();
+      headers.setContentType(MediaType.IMAGE_PNG);
+      headers.setContentLength(media.length);
 
-        List<FileInfoResponse> fileInfoResponses = storageService.loadAll().map(path -> {
-            String filename = path.getFileName().toString();
-            String url = MvcUriComponentsBuilder
-                    .fromMethodName(FileController.class, "serveFile", path.getFileName().toString()).build().toString();
-            return new FileInfoResponse(filename, url);
-        }).collect(Collectors.toList());
-        return ResponseEntity.status(HttpStatus.OK).body(fileInfoResponses);
-
+      return new ResponseEntity<>(media, headers, HttpStatus.OK);
+    } catch (IOException ex) {
+      logger.error("Get Image Error:" + ex.toString());
+      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new byte[0]);
     }
+  }
 
-    @GetMapping("/files/{filename:.+}")
-    @ResponseBody
-    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
-
-        Resource file = storageService.loadAsResource(filename);
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+  @PostMapping("/delete")
+  public ResponseEntity<?> deleteImagesFromS3(
+      @Valid @RequestBody DeleteImagesRequest deleteImagesRequest) {
+    try {
+      if (deleteImagesRequest.getUuids().size() > 0) {
+        storageService.deleteFromS3(deleteImagesRequest.getUuids());
+      }
+      storageService.deleteFiles();
+      return ResponseEntity.status(HttpStatus.OK).body("Deleted all uploaded Images from S3");
+    } catch (RuntimeException ex) {
+      logger.error("Delete Image Error:" + ex.toString());
+      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(ex.getMessage());
     }
+  }
 
-    @PostMapping("/upload")
-    public ResponseEntity<FileInfoResponse> uploadFile(@RequestParam("file") MultipartFile file) {
-        try {
-            String fileName = storageService.store(file);
-            logger.info("Upload File UUID: " + fileName);
-            return ResponseEntity.status(HttpStatus.OK).body(
-                    new FileInfoResponse(file.getOriginalFilename(), fileName));
-        } catch (Exception e) {
-            logger.error("Store File Error:" + e.toString());
-            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(
-                    new FileInfoResponse("Could not upload the file: " + file.getOriginalFilename(), ""));
-        }
-    }
-
-    @GetMapping("/images/{fileName}")
-    public ResponseEntity<byte[]> getImageFile(@PathVariable String fileName) {
-        try {
-            byte[] media = storageService.getByteArrayFromFile(fileName);
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.IMAGE_PNG);
-            headers.setContentLength(media.length);
-
-            return new ResponseEntity<>(media, headers, HttpStatus.OK);
-        } catch (IOException ex) {
-            logger.error("Get Image Error:" + ex.toString());
-            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new byte[0]);
-        }
-    }
-
-    @PostMapping("/delete")
-    public ResponseEntity<?> deleteImagesFromS3(@Valid @RequestBody DeleteImagesRequest deleteImagesRequest) {
-        try {
-            if (deleteImagesRequest.getUuids().size() > 0) {
-                storageService.deleteFromS3(deleteImagesRequest.getUuids());
-            }
-            storageService.deleteFiles();
-            return ResponseEntity.status(HttpStatus.OK).body("Deleted all uploaded Images from S3");
-        } catch (RuntimeException ex){
-            logger.error("Delete Image Error:" + ex.toString());
-            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(ex.getMessage());
-        }
-    }
-
-    @ExceptionHandler(StorageFileNotFoundException.class)
-    public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc) {
-        return ResponseEntity.notFound().build();
-    }
+  @ExceptionHandler(StorageFileNotFoundException.class)
+  public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc) {
+    return ResponseEntity.notFound().build();
+  }
 
 }

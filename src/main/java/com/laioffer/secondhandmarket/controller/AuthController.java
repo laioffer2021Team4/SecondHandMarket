@@ -28,49 +28,49 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    private static final Logger logger = LoggerFactory.getLogger( AuthController.class);
+  private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
-    @Autowired
-    UserRepository userRepository;
+  @Autowired
+  UserRepository userRepository;
 
-    @Autowired
-    AuthService authService;
+  @Autowired
+  AuthService authService;
 
-    @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-        try {
-            JsonWebTokenResponse jsonWebTokenResponse =
-                    authService.authenticateUser(loginRequest.getEmail(), loginRequest.getPassword());
+  @PostMapping("/login")
+  public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    try {
+      JsonWebTokenResponse jsonWebTokenResponse =
+          authService.authenticateUser(loginRequest.getEmail(), loginRequest.getPassword());
 
-            return ResponseEntity.ok(jsonWebTokenResponse);
+      return ResponseEntity.ok(jsonWebTokenResponse);
 
-        } catch (RuntimeException e) {
-            logger.error("Can not authenticate user: " + e);
-            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(e.getMessage());
-        }
+    } catch (RuntimeException e) {
+      logger.error("Can not authenticate user: " + e);
+      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(e.getMessage());
     }
+  }
 
-    @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+  @PostMapping("/register")
+  public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 
-        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Email is already in use!"));
-        }
-        try {
-            authService.registerUser(signUpRequest);
-            return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
-        } catch (RuntimeException e) {
-            logger.error("Failed to create customer: " + e);
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+      return ResponseEntity
+          .badRequest()
+          .body(new MessageResponse("Error: Email is already in use!"));
     }
-
-
-    @PostMapping("/logout")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LogoutRequest logoutRequest) {
-        JasonWebTokenUtils.invalidateRelatedTokens(logoutRequest);
-        return ResponseEntity.ok(new MessageResponse("User Logged out successfully!"));
+    try {
+      authService.registerUser(signUpRequest);
+      return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    } catch (RuntimeException e) {
+      logger.error("Failed to create customer: " + e);
+      return ResponseEntity.badRequest().body(e.getMessage());
     }
+  }
+
+
+  @PostMapping("/logout")
+  public ResponseEntity<?> authenticateUser(@Valid @RequestBody LogoutRequest logoutRequest) {
+    JasonWebTokenUtils.invalidateRelatedTokens(logoutRequest);
+    return ResponseEntity.ok(new MessageResponse("User Logged out successfully!"));
+  }
 }

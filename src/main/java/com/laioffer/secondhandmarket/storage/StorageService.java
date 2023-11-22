@@ -10,21 +10,21 @@ import java.util.stream.Stream;
 
 public interface StorageService {
 
-    void init();
+  void init();
 
-    String store(MultipartFile file) throws Exception;
+  String store(MultipartFile file) throws Exception;
 
-    Stream<Path> loadAll();
+  Stream<Path> loadAll();
 
-    Path load(String filename);
+  Path load(String filename);
 
-    Resource loadAsResource(String filename);
+  Resource loadAsResource(String filename);
 
-    void deleteAll();
+  void deleteAll();
 
-    byte[] getByteArrayFromFile(String url) throws IOException;
+  byte[] getByteArrayFromFile(String url) throws IOException;
 
-    void deleteFromS3(List<String> uuids);
+  void deleteFromS3(List<String> uuids);
 
-    void deleteFiles();
+  void deleteFiles();
 }

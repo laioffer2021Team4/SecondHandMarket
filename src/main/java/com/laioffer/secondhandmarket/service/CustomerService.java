@@ -18,43 +18,47 @@ import javax.transaction.Transactional;
 @Component
 public class CustomerService {
 
-    @Autowired
-    CustomerRepository customerRepository;
+  @Autowired
+  CustomerRepository customerRepository;
 
-    @Autowired
-    UserRepository userRepository;
+  @Autowired
+  UserRepository userRepository;
 
-    @Autowired
-    TypeRepository typeRepository;
+  @Autowired
+  TypeRepository typeRepository;
 
-    public void createCustomer(SignupRequest signupRequest, User user) {
+  public void createCustomer(SignupRequest signupRequest, User user) {
 
-            customerRepository.save(Customer.builder()
-                    .address(Address.builder()
-                            .street(signupRequest.getStreet())
-                            .city(signupRequest.getCity())
-                            .states(signupRequest.getState())
-                            .zipcode(signupRequest.getZipcode())
-                            .type(typeRepository.findByAddressType(AddressType.Billing)
-                                    .orElseThrow(() -> new RuntimeException("Didn't find Address Type: " + AddressType.Billing)))
-                            .build())
-                    .firstName(signupRequest.getFirstname())
-                    .lastName(signupRequest.getLastname())
-                    .user(user)
-                    .build());
+    customerRepository.save(Customer.builder()
+        .address(Address.builder()
+            .street(signupRequest.getStreet())
+            .city(signupRequest.getCity())
+            .states(signupRequest.getState())
+            .zipcode(signupRequest.getZipcode())
+            .type(typeRepository.findByAddressType(AddressType.Billing)
+                .orElseThrow(
+                    () -> new RuntimeException("Didn't find Address Type: " + AddressType.Billing)))
+            .build())
+        .firstName(signupRequest.getFirstname())
+        .lastName(signupRequest.getLastname())
+        .user(user)
+        .build());
 
-    }
-    @Transactional
-    public Customer getCustomerByEmail(String email) {
+  }
 
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Didn't find Customer Data by User Email: " + email));
-        return customerRepository.findByUser(user)
-                .orElseThrow(() -> new RuntimeException("Didn't find User Data by Email: " + email));
-    }
-    @Transactional
-    public Customer getCustomerById(int id) {
-        return customerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Customer with id: " + id + " does not exist"));
-    }
+  @Transactional
+  public Customer getCustomerByEmail(String email) {
+
+    User user = userRepository.findByEmail(email)
+        .orElseThrow(
+            () -> new RuntimeException("Didn't find Customer Data by User Email: " + email));
+    return customerRepository.findByUser(user)
+        .orElseThrow(() -> new RuntimeException("Didn't find User Data by Email: " + email));
+  }
+
+  @Transactional
+  public Customer getCustomerById(int id) {
+    return customerRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Customer with id: " + id + " does not exist"));
+  }
 }

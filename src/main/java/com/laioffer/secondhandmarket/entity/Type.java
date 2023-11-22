@@ -23,12 +23,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "address_type")
 public class Type {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(length = 20)
-    private AddressType addressType;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
+
+  @Enumerated(EnumType.STRING)
+  @Column(length = 20)
+  private AddressType addressType;
 
 }

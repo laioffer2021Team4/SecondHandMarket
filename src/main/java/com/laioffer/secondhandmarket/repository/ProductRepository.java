@@ -10,19 +10,19 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
-    List<Product> findAll();
+  List<Product> findAll();
 
-    Optional<Product> findProductById(int id);
+  Optional<Product> findProductById(int id);
 
-    void deleteProductById(int id);
+  void deleteProductById(int id);
 
-    Product save(Product product);
+  Product save(Product product);
 
-    List<Product> findByCategoryContaining(String keyword);
+  List<Product> findByCategoryContaining(String keyword);
 
-    List<Product> findByDescriptionContaining(String keyword);
+  List<Product> findByDescriptionContaining(String keyword);
 
-    List<Product> findByManufacturerContaining(String keyword);
+  List<Product> findByManufacturerContaining(String keyword);
 
-    List<Product> findByTitleContaining(String keyword);
+  List<Product> findByTitleContaining(String keyword);
 }

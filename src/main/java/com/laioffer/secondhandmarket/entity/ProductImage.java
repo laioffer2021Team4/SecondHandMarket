@@ -22,12 +22,12 @@ import java.io.Serializable;
 @Table(name = "image")
 public class ProductImage implements Serializable {
 
-    private static final long serialVersionUID = -2262187352967700463L;
+  private static final long serialVersionUID = -2262187352967700463L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private int id;
 
-    private String uuid;
+  private String uuid;
 
 }

@@ -13,12 +13,13 @@ import java.io.IOException;
 
 @Component
 public class AuthEntryPointJasonWebToken implements AuthenticationEntryPoint {
-    private static final Logger logger = LoggerFactory.getLogger(AuthEntryPointJasonWebToken.class);
 
-    @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response,
-                         AuthenticationException authException) throws IOException, ServletException {
-        logger.error("Unauthorized error: {}", authException.getMessage());
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Error: Unauthorized");
-    }
+  private static final Logger logger = LoggerFactory.getLogger(AuthEntryPointJasonWebToken.class);
+
+  @Override
+  public void commence(HttpServletRequest request, HttpServletResponse response,
+      AuthenticationException authException) throws IOException, ServletException {
+    logger.error("Unauthorized error: {}", authException.getMessage());
+    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Error: Unauthorized");
+  }
 }

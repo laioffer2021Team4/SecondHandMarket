@@ -8,7 +8,8 @@ import lombok.Setter;
 @Setter
 @Getter
 public class ProductResponse {
-    String title;
-    int productId;
-    String uuid;
+
+  String title;
+  int productId;
+  String uuid;
 }

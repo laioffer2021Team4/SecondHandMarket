@@ -12,22 +12,22 @@ import java.util.Set;
 @Getter
 public class SignupRequest {
 
-    @NotBlank
-    @Size(max = 50)
-    private String email;
+  @NotBlank
+  @Size(max = 50)
+  private String email;
 
-    private Set<String> role;
+  private Set<String> role;
 
-    @NotBlank
-    @Size(min = 6, max = 40)
-    private String password;
+  @NotBlank
+  @Size(min = 6, max = 40)
+  private String password;
 
-    private String firstname;
-    private String lastname;
-    private String street;
-    private String city;
-    private String state;
-    private String zipcode;
+  private String firstname;
+  private String lastname;
+  private String street;
+  private String city;
+  private String state;
+  private String zipcode;
 
 }
 
